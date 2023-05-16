@@ -13,8 +13,8 @@ router.get('/:spotId', async (req, res, next) => {
     const spot = await Spot.findByPk(spotId);
 
     if(!spot) {
-        res.status = 404;
-        res.json({message: "Spot couldn't be found"})
+        res.statusCode = 404;
+        return res.json({message: "Spot couldn't be found"})
     }
 
     const targetSpot = spot.toJSON();
