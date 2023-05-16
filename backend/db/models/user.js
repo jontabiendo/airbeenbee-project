@@ -72,6 +72,15 @@ module.exports = (sequelize, DataTypes) => {
           'email'
         ]
       }
+    },
+    scopes: {
+      aggregate() {
+        return {
+          attributes: {
+            exclude: ['updatedAt', 'createdAt', 'hashedPassword', 'email', 'username', ]
+          }
+        }
+      }
     }
   });
   return User;
