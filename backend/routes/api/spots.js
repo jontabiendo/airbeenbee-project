@@ -131,7 +131,13 @@ router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next
         message: "Spot couldn't be found"
         })
     }
-    
+    if(spotId !== req.user.id) {
+        res.statusCode = 401
+        return res.json({
+            message: "You do not have authorization to make changes to this spot"
+        })
+    }
+
     const createdImage = await SpotImage.create({
         spotId,
         url,
