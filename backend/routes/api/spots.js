@@ -46,6 +46,21 @@ const validateSpot = [
         .notEmpty()
         .withMessage('Price per day is required'),
     handleValidationErrors
+];
+
+const validateImg = [
+    check('url')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('URL cannot be empty'),
+    check('preview')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please inpute "true" or "false"'),
+    check('preview')
+        .isBoolean()
+        .withMessage('Please inpute "true" or "false"'),
+    handleValidationErrors
 ]
 
 router.get('/:spotId', async (req, res, next) => {
@@ -103,6 +118,31 @@ router.get('/:spotId', async (req, res, next) => {
 
     res.json(targetSpot)
 });
+
+router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next) => {
+    const { url, preview } = req.body;
+
+    const spotId = req.params.spotId
+
+    const spot = await Spot.findByPk(spotId);
+    if(!spot) return res.json({
+        message: "Spot couldn't be found"
+    })
+
+    const createdImage = await SpotImage.create({
+        spotId,
+        url,
+        preview
+    });
+
+    const resImage = await SpotImage.findOne({
+        where: {
+            id: createdImage.id
+        }
+    })
+
+    res.json(resImage)
+})
 
 router.post('/', [requireAuth, validateSpot], async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
