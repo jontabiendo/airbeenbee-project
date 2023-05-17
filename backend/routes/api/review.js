@@ -44,11 +44,10 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 preview: true
             }
         })
-        console.log(1, preview.url)
-
+        console.log(1, preview)
+        if(!preview) return 'No preview image found'
         return preview.url
     }
-    reviewList.forEach(getPreview)
 
     for(const review of reviewList) {
         review.Spot = {
@@ -67,24 +66,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
         review.User = user
     }
 
-    // let url;
-    // reviewList.forEach(review => {
-    //     review.Spot = {
-    //         id: review.Spot.id,
-    //         ownerId: review.Spot.ownerId,
-    //         address: review.Spot.address,
-    //         city: review.Spot.city,
-    //         state: review.Spot.state,
-    //         country: review.Spot.country,
-    //         lat: review.Spot.lat,
-    //         lng: review.Spot.lng,
-    //         name: review.Spot.name,
-    //         price: review.Spot.price
-    //     }
-    //     review.User = user
-    // })
-
-    // console.log(reviewList)
     res.json({Reviews: reviewList})
 })
 
