@@ -56,10 +56,10 @@ const validateImg = [
     check('preview')
         .exists({ checkFalsy: true })
         .notEmpty()
-        .withMessage('Please inpute "true" or "false"'),
+        .withMessage("Please input 'true' or 'false'"),
     check('preview')
         .isBoolean()
-        .withMessage('Please inpute "true" or "false"'),
+        .withMessage("Please input 'true' or 'false'"),
     handleValidationErrors
 ]
 
@@ -125,10 +125,13 @@ router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next
     const spotId = req.params.spotId
 
     const spot = await Spot.findByPk(spotId);
-    if(!spot) return res.json({
+    if(!spot) {
+        res.statusCode = 404;
+        return res.json({
         message: "Spot couldn't be found"
-    })
-
+        })
+    }
+    
     const createdImage = await SpotImage.create({
         spotId,
         url,
