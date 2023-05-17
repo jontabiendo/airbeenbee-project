@@ -35,6 +35,21 @@ module.exports = {
       spotId: 2,
       url: 'https://www.google.com',
       preview: false
+    },
+    {
+      spotId: 3,
+      url: 'https://www.google.com',
+      preview: true
+    },
+    {
+      spotId: 3,
+      url: 'https://www.google.com',
+      preview: false
+    },
+    {
+      spotId: 3,
+      url: 'https://www.google.com',
+      preview: false
     }
    ])
   },
