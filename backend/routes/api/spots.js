@@ -48,6 +48,46 @@ const validateSpot = [
     handleValidationErrors
 ];
 
+const validateSpotEdits = [
+    check('address')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Street address is required'),
+    check('city')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('City is required'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('State is required'),
+    check('country')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Country is required'),
+    check('lat')
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Latitude is not valid'),
+    check('lng')
+        .exists({ checkFalsy: true })
+        .isDecimal()
+        .withMessage('Longitude is not valid'),
+    check('name')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 50 })
+        .withMessage('Name must be less than 50 characters'),
+    check('description')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Description is required'),
+    check('price')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Price per day is required'),
+    handleValidationErrors
+];
+
 const validateImg = [
     check('url')
         .exists({ checkFalsy: true })
@@ -144,13 +184,43 @@ router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next
         preview
     });
 
-    const resImage = await SpotImage.findOne({
-        where: {
-            id: createdImage.id
-        }
-    })
+    const resImage = await SpotImage.findByPk(createdImage.id)
 
     res.json(resImage)
+});
+
+router.put('/:spotId', [requireAuth, validateSpot], async (req, res, next) => {
+    const spotId = req.params.spotId
+
+    const spot = await Spot.findByPk(spotId);
+    if(!spot) {
+        res.statusCode = 404;
+        return res.json({
+        message: "Spot couldn't be found"
+        })
+    };
+    if(spot.ownerId !== req.user.id) {
+        res.statusCode = 401
+        return res.json({
+            message: "You do not have authorization to make changes to this spot"
+        })
+    };
+
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    spot.update({
+        address: address || spot.address,
+        city: city || spot.city,
+        state: state || spot.state,
+        country: country || spot.country,
+        lat: lat || spot.lat,
+        lng: lng || spot.lng,
+        name: name || spot.name,
+        description: description || spot.description,
+        price: price || spot.price
+    });
+
+    res.json(spot)
 })
 
 router.post('/', [requireAuth, validateSpot], async (req, res, next) => {
@@ -169,19 +239,7 @@ router.post('/', [requireAuth, validateSpot], async (req, res, next) => {
         price
     });
 
-    const createdSpot = await Spot.findOne({
-        where: {
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name, 
-        description, 
-        price
-        }
-    });
+    const createdSpot = await Spot.findByPk(newSpot.id);
 
     res.json(createdSpot);
 });
