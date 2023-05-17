@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, SpotImage, Review } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
 const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
@@ -219,6 +219,37 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     res.json({
         message: "Successfully deleted"
     });
+});
+
+router.get('/:spotId/reviews', async (req, res, next) => {
+    if(!(await Spot.findByPk(req.params.spotId))) {
+        res.statusCode = 404;
+        return res.json({
+            message: "Spot couldn't be found"
+        });
+    };
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName'] 
+            },
+            {
+                model: ReviewImage
+            }
+        ]
+    });
+
+    const revObj =  [];
+    reviews.forEach(review => {
+        revObj.push(review.toJSON())
+    });
+
+    res.json({ Reviews: revObj })
 })
 
 router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next) => {
