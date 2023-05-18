@@ -101,6 +101,18 @@ const validateImg = [
         .isBoolean()
         .withMessage("Please input 'true' or 'false'"),
     handleValidationErrors
+];
+
+const validateReview = [
+    check('review')
+    .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Review text is required'),
+    check('stars')
+    .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a rating'),
+    handleValidationErrors
 ]
 
 router.get('/:spotId', async (req, res, next) => {
@@ -250,6 +262,52 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     });
 
     res.json({ Reviews: revObj })
+});
+
+router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res, next) => {
+    const { review, stars } = req.body;
+    const spotId = req.params.spotId;
+
+    if(await Review.findOne({
+        where: {
+            spotId,
+            userId: req.user.id
+        }
+    })) {
+        res.statusCode = 500;
+        return res.json({
+            message: 'User already has a review for this spot'
+        });
+    };
+
+    if(stars < 1 || stars > 5) {
+        const errors = {};
+
+        const err = Error('Bad request.');
+        err.erros = errors;
+        err.status = 400;
+        err.title = 'Bad request';
+        err.message = "Rating must be an integer from 1 to 5";
+        next(err);
+    };
+
+    const spot = await Spot.findByPk(spotId);
+    if(!spot) {
+        res.statusCode = 404;
+        return res.json({
+        message: "Spot couldn't be found"
+        });
+    };
+
+    const newReview = await Review.create({
+        userId: req.user.id,
+        spotId,
+        review,
+        stars
+    });
+
+    res.statusCode = 201
+    res.json(newReview);
 })
 
 router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next) => {
