@@ -19,10 +19,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
                 exclude: ['createdAt', 'updatedAt', 'description']
             },
             include: {
-                model: SpotImage,
-                // where: {
-                //     preview: true
-                // }
+                model: SpotImage
             }
         }
     });
@@ -37,16 +34,14 @@ router.get('/current', requireAuth, async(req, res, next) => {
     rawBookings.forEach(booking => {
         bookings.push(booking.toJSON());
     });
-    console.log(1, bookings)
 
     bookings.forEach(booking => {
-        console.log(2, booking)
         const preview = booking.Spot.SpotImages.find(image => image.preview === true);
 
         if(!preview) {
             booking.Spot.previewImage = 'No preview image found'
         }
-        else booking.previewImage = preview.url;
+        else booking.Spot.previewImage = preview.url;
 
         delete booking.Spot.SpotImages
     })
