@@ -25,28 +25,28 @@ module.exports = {
     {
       spotId: 1,
       userId: 2,
-      startDate: '2020-12-1',
-      endDate: '2020-12-7',
+      startDate: new Date('2020-12-1'),
+      endDate: new Date('2020-12-7'),
     },{
       spotId: 1,
       userId: 3,
-      startDate: '2021-1-3',
-      endDate: '2021-1-20',
+      startDate: new Date('2021-1-3'),
+      endDate: new Date('2021-1-20'),
     },{
       spotId: 2,
       userId: 1,
-      startDate: '2022-2-3',
-      endDate: '2022-2-12',
+      startDate: new Date('2022-2-3'),
+      endDate: new Date('2022-2-12'),
     },{
       spotId: 2,
       userId: 2 ,
-      startDate: '2023-3-5',
-      endDate: '2023-3-13',
+      startDate: new Date('2023-3-5'),
+      endDate: new Date('2023-3-13'),
     },{
       spotId: 3,
       userId: 3,
-      startDate: '2024-4-5',
-      endDate: '2024-4-24',
+      startDate: new Date('2024-4-5'),
+      endDate: new Date('2024-4-24'),
     }
    ])
   },

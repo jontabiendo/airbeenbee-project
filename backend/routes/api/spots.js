@@ -105,13 +105,34 @@ const validateImg = [
 
 const validateReview = [
     check('review')
-    .exists({ checkFalsy: true })
+        .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage('Review text is required'),
     check('stars')
-    .exists({ checkFalsy: true })
+        .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage('Please provide a rating'),
+    check('stars')
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
+
+const validateBooking = [
+    check('startDate')
+        .exists({ checlkFalsy: true })
+        .notEmpty()
+        .withMessage('Start date cannot be empty'),
+    check('startDate')
+        .isDate()
+        .withMessage('Please provide a valid start date'),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('End date cannot be empty'),
+    check('endDate')
+        .isDate()
+        .withMessage('Please provide a valid end date'),
     handleValidationErrors
 ]
 
@@ -264,6 +285,10 @@ router.get('/:spotId/reviews', async (req, res, next) => {
     res.json({ Reviews: revObj })
 });
 
+router.post('/:spotId/bookings', [requireAuth, validateBooking], async (req, res, next) => {
+    
+})
+
 router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res, next) => {
     const { review, stars } = req.body;
     const spotId = req.params.spotId;
@@ -278,17 +303,6 @@ router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res, 
         return res.json({
             message: 'User already has a review for this spot'
         });
-    };
-
-    if(stars < 1 || stars > 5) {
-        const errors = {};
-
-        const err = Error('Bad request.');
-        err.erros = errors;
-        err.status = 400;
-        err.title = 'Bad request';
-        err.message = "Rating must be an integer from 1 to 5";
-        next(err);
     };
 
     const spot = await Spot.findByPk(spotId);
