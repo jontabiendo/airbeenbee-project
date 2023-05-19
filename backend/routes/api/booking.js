@@ -1,4 +1,5 @@
 const express = require('express');
+const{ Op } = require('sequelize')
 const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -49,6 +50,79 @@ router.get('/current', requireAuth, async(req, res, next) => {
     res.json({
         Bookings: bookings
     })
+});
+
+router.put('/:bookingId', requireAuth, async (req, res, next) => {
+    let { startDate, endDate } = req.body;
+    startDate = new Date(startDate);
+    endDate = new Date(endDate);
+    
+    
+    const targetBooking = await Booking.findByPk(req.params.bookingId);
+
+    if(!targetBooking) {
+        res.statusCode = 404;
+        return res.json({
+            message: "Booking couldn't be found"
+        });
+    };
+
+    if(targetBooking.userId !== req.user.id) {
+        return res.json({
+            message: "You are not authorized to make changes to this "
+        });
+    };
+    
+    if(targetBooking.endDate.valueOf() <= Date.now()) {
+        res.statusCode = 403;
+        return res.json({
+            message: "Past bookings can't be modified"
+        });
+    };
+
+    const bookings = await Booking.findAll({
+        where: {
+            spotId: targetBooking.spotId,
+            id: {
+                [Op.ne]: req.params.bookingId
+            }
+        }
+    });
+
+    const bookingList = [];
+    bookings.forEach(booking => {
+        bookingList.push(booking.toJSON())
+    });
+    console.log(bookingList)
+
+    if(bookingList.length) {
+        bookingList.forEach(booking => {
+            const errors = {};
+
+            if(startDate.valueOf() >= booking.startDate.valueOf() && startDate.valueOf() <= booking.endDate.valueOf()) {
+                errors.startDate = "Start date conflicts with an existing booking"
+            };
+
+            if(endDate.valueOf() >= booking.startDate.valueOf() && endDate.valueOf() <= booking.endDate.valueOf()) {
+                errors.endDate = "End date conflicts with an existing booking"
+            };
+
+            if(Object.values(errors).length) {
+                res.statusCode = 403
+                return res.json({
+                    message: "Sorry, this spot is already booked for the specified dates",
+                    errors
+                });
+            }
+        });
+    };
+
+    targetBooking.update({
+        startDate,
+        endDate
+    })
+    
+    res.json(targetBooking)
 })
 
 module.exports = router

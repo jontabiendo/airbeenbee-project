@@ -21,13 +21,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Booking.init({
     startDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       validate: {
         isDate: true
       }
     },
     endDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       validate: {
         isDate: true
       }
