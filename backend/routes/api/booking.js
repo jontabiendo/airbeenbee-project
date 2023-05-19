@@ -9,6 +9,24 @@ const { Booking, Spot, SpotImage } = require('../../db/models');
 
 const router = express.Router();
 
+const validateBooking = [
+    check('startDate')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide a startDate'),
+    check('startDate')
+        .isDate()
+        .withMessage('Please provide a valid date'),
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage('Please provide an endDate'),
+    check('endDate')
+        .isDate()
+        .withMessage('Please provide a valid date'),
+    handleValidationErrors
+]
+
 router.get('/current', requireAuth, async(req, res, next) => {
     const rawBookings = await Booking.findAll({
         where: {
@@ -52,7 +70,38 @@ router.get('/current', requireAuth, async(req, res, next) => {
     })
 });
 
-router.put('/:bookingId', requireAuth, async (req, res, next) => {
+router.delete('/:bookingId', requireAuth, async(req, res, next) => {
+    const targetBooking = await Booking.findByPk(req.params.bookingId);
+
+    if(!targetBooking) {
+        res.statusCode = 404;
+        return res.json({
+            message: "Booking couldn't be found"
+        });
+    };
+
+    if (targetBooking.userId !== req.user.id) {
+        res.statusCode = 401;
+        return res.json({
+            message: "You are not authorized to delete this booking"
+        });
+    };
+
+    if(targetBooking.startDate.valueOf() <= Date.now()) {
+        res.statusCode = 403;
+        return res.json({
+            message: "Bookings that have been started can't be deleted"
+        });
+    };
+
+    targetBooking.destroy();
+
+    res.json({
+        message: "Successfully deleted" 
+    });
+})
+
+router.put('/:bookingId', [requireAuth, validateBooking], async (req, res, next) => {
     let { startDate, endDate } = req.body;
     startDate = new Date(startDate);
     endDate = new Date(endDate);
@@ -122,7 +171,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         endDate
     })
     
-    res.json(targetBooking)
+    res.json(targetBooking);
 })
 
 module.exports = router
