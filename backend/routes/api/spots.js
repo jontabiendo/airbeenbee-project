@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
+const { Op } = require('sequelize');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
@@ -117,24 +118,6 @@ const validateReview = [
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
 ];
-
-// const validateBooking = [
-//     check('startDate')
-//         .exists({ checlkFalsy: true })
-//         .notEmpty()
-//         .withMessage('Start date cannot be empty'),
-//     check('startDate')
-//         .isDate()
-//         .withMessage('Please provide a valid start date'),
-//     check('endDate')
-//         .exists({ checkFalsy: true })
-//         .notEmpty()
-//         .withMessage('End date cannot be empty'),
-//     check('endDate')
-//         .isDate()
-//         .withMessage('Please provide a valid end date'),
-//     handleValidationErrors
-// ];
 
 router.get('/current', requireAuth, async (req, res, next) => {
     const spots = await Spot.findAll({
@@ -551,7 +534,140 @@ router.post('/', [requireAuth, validateSpot], async (req, res, next) => {
 });
 
 router.get('/', async (req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    
+    const errors = {}
+    
+    const pagination = {};
+    if(size) {
+        size = parseInt(size);
+        if(!Number.isNaN(size)) {
+            if(size < 1 || size > 20) {
+                errors.size = "Size must be a number greater than or equal to 1"
+            }
+            else pagination.limit = size;
+        }
+        else errors.size = "Size must be an integer";
+    }
+    else {
+        size = 20;
+        pagination.limit =20
+    };
+
+    if(page) {
+        page = parseInt(page);
+        if(!Number.isNaN(page)){
+            if(!pagination.limit) pagination.limit = 20;
+            if(page < 1 || page > 10) {
+                errors.page = "Page must be a number greater than or equal to 1"
+            }
+            else pagination.offset = (page - 1) * pagination.limit
+        }
+        else errors.page = "Page must be an integer"
+    }
+    else {
+        page = 1;
+        pagination.offset = 0
+    };
+
+    const minLat2 = parseFloat(minLat);
+    const maxLat2 = parseFloat(maxLat);
+    const minLng2 = parseFloat(minLng);
+    const maxLng2 = parseFloat(maxLng);
+    const minPrice2 = parseFloat(minPrice);
+    const maxPrice2 = parseFloat(maxPrice);
+
+    const where = {}
+    
+    if(maxLat || minLat) {
+        if(!Number.isNaN(minLat2) && !Number.isNaN(maxLat2)) {
+            where.lat = {
+                [Op.gte]: minLat2,
+                [Op.lte]: maxLat2
+            }
+        }else if (!Number.isNaN(minLat2)) {
+            where.lat = {
+                [Op.gte]: minLat2
+            };
+        }
+        else if(!Number.isNaN(maxLat2)) {
+            where.lat = {
+                [Op.lte]: maxLat2
+            };
+        };
+    };
+
+    if(minLat && Number.isNaN(minLat2)) {
+        errors.minLat = "Minimum longitude is invalid"
+    };
+
+    if(maxLat && Number.isNaN(maxLat2)) {
+        errors.maxLat = "Maximum longitude is invalid"
+    };
+
+    if(minLng || maxLng) {
+        if(!Number.isNaN(minLng2) && !Number.isNaN(maxLng2)) {
+            where.lng = {
+                [Op.gte]: minLng2,
+                [Op.lte]: maxLng2
+            }
+        }
+        else if (!Number.isNaN(minLng2)) {
+            where.lng = {
+                [Op.gte]: minLng2
+            };
+        }
+        else if(!Number.isNaN(maxLng2)) {
+            where.lng = {
+                [Op.lte]: maxLng2
+            };
+        };
+    };
+
+    if(minLng) {
+        errors.minLng = "Minimum longitude is invalid"
+    };
+
+    if(maxLng && Number.isNaN(maxLng2)) {
+        errors.maxLng = "Maximum longitude is invalid"
+    };
+
+    if(minPrice || maxPrice) {
+        if(!Number.isNaN(minPrice2) && !Number.isNaN(maxPrice2)) {
+            where.price = {
+                [Op.gte]: minPrice2,
+                [Op.lte]: maxPrice2
+            }
+        }
+        else if (!Number.isNaN(minPrice2)) {
+            where.lng = {
+                [Op.gte]: minPrice2
+            };
+        }
+        else if(!Number.isNaN(maxPrice2)) {
+            where.lng = {
+                [Op.lte]: maxPrice2
+            };
+        };
+    };
+
+    if(minPrice2 < 0) {
+        errors.minPrice = "Minimum price must be greater than or equal to 0"
+    };
+
+    if(maxPrice < 0) {
+        errors.maxPrice = "Maximum price must be greater tha or equal to 0"
+    };
+
+    if(Object.values(errors).length) {
+        res.statusCode = 400;
+        return res.json({
+            message: "Bad Request",
+            errors
+        })
+    }
     const spots = await Spot.findAll({
+        ...pagination,
         include: [
             {
                 model: SpotImage
@@ -559,7 +675,8 @@ router.get('/', async (req, res, next) => {
             {
                 model: Review
             }
-        ]
+        ],
+        where
     })
 
     const spotList = [] 
@@ -592,7 +709,11 @@ router.get('/', async (req, res, next) => {
         delete spot.Reviews
     })
 
-    res.json({"Spots": spotList})
+    res.json({
+        "Spots": spotList,
+        page,
+        size
+    })
 });
 
 
