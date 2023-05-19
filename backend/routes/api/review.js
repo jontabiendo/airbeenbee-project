@@ -21,9 +21,17 @@ const validateReview = [
         .isInt({ min: 1, max: 5 })
         .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
+];
+
+const validateImage = [
+    check('url')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Image url required"),
+    handleValidationErrors
 ]
 
-router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
+router.post('/:reviewId/images', [requireAuth, validateImage], async (req, res, next) => {
     const review = await Review.findByPk(req.params.reviewId);
 
     if(!review) {
@@ -57,7 +65,12 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         reviewId: req.params.reviewId
     });
 
-    res.send(reviewImage);
+    const pojo = {
+        id: reviewImage.id,
+        url: reviewImage.url
+    }
+
+    res.json(pojo);
 });
 
 router.put('/:reviewId', [requireAuth, validateReview], async (req, res, next) => {

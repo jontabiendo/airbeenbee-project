@@ -164,7 +164,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         delete spot.Reviews
     })
 
-    res.json(ownedSpots)
+    res.json({ Spots: ownedSpots })
 });
 
 router.get('/:spotId', async (req, res, next) => {
@@ -530,6 +530,7 @@ router.post('/', [requireAuth, validateSpot], async (req, res, next) => {
 
     const createdSpot = await Spot.findByPk(newSpot.id);
 
+    res.status = 201;
     res.json(createdSpot);
 });
 
