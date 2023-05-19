@@ -136,6 +136,54 @@ const validateReview = [
 //     handleValidationErrors
 // ];
 
+router.get('/current', requireAuth, async (req, res, next) => {
+    const spots = await Spot.findAll({
+        where: {
+            ownerId: req.user.id
+        },
+        include: [
+            {
+                model: SpotImage
+            },
+            {
+                model: Review
+            }
+        ]
+    });
+
+    const ownedSpots = []
+    spots.forEach(spot =>{
+        ownedSpots.push(spot.toJSON());
+    });
+
+    ownedSpots.forEach(spot => {
+        spot.SpotImages.forEach(spotImage => {
+            if (spotImage.preview === true) {
+                spot.previewImage = spotImage.url
+            }
+        })
+        if (!spot.previewImage) {
+            spot.previewImage = 'No preview image found'
+        }
+        delete spot.SpotImages
+    });
+
+    ownedSpots.forEach(spot => {
+        if (spot.Reviews.length) {
+            let count = 0;
+            spot.Reviews.forEach(review => {
+                count += review.stars
+            })
+            spot.avgRating = count/spot.Reviews.length
+        }
+        else spot.avgRating = 'No reviews have been submitted yet'
+
+        delete spot.Reviews
+    })
+
+    res.json(ownedSpots)
+});
+
 router.get('/:spotId', async (req, res, next) => {
     const spotId = req.params.spotId;
     
@@ -547,53 +595,7 @@ router.get('/', async (req, res, next) => {
     res.json({"Spots": spotList})
 });
 
-router.get('/current', requireAuth, async (req, res, next) => {
-    const spots = await Spot.findAll({
-        where: {
-            ownerId: req.user.id
-        },
-        include: [
-            {
-                model: SpotImage
-            },
-            {
-                model: Review
-            }
-        ]
-    });
 
-    const ownedSpots = []
-    spots.forEach(spot =>{
-        ownedSpots.push(spot.toJSON());
-    });
-
-    ownedSpots.forEach(spot => {
-        spot.SpotImages.forEach(spotImage => {
-            if (spotImage.preview === true) {
-                spot.previewImage = spotImage.url
-            }
-        })
-        if (!spot.previewImage) {
-            spot.previewImage = 'No preview image found'
-        }
-        delete spot.SpotImages
-    });
-
-    ownedSpots.forEach(spot => {
-        if (spot.Reviews.length) {
-            let count = 0;
-            spot.Reviews.forEach(review => {
-                count += review.stars
-            })
-            spot.avgRating = count/spot.Reviews.length
-        }
-        else spot.avgRating = 'No reviews have been submitted yet'
-
-        delete spot.Reviews
-    })
-
-    res.json(ownedSpots)
-});
 
 
 
