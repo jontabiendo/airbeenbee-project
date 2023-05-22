@@ -530,7 +530,7 @@ router.post('/', [requireAuth, validateSpot], async (req, res, next) => {
 
     const createdSpot = await Spot.findByPk(newSpot.id);
 
-    res.status = 201;
+    res.statusCode = 201;
     res.json(createdSpot);
 });
 
