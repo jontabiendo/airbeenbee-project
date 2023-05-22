@@ -625,7 +625,7 @@ router.get('/', async (req, res, next) => {
         };
     };
 
-    if(minLng) {
+    if(minLng && Number.isNaN(minLng2)) {
         errors.minLng = "Minimum longitude is invalid"
     };
 
