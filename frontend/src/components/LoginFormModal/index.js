@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { thunkSetUser } from '../../store/session';
-import { useHistory, Redirect } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
 
 const LoginFormModal = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
