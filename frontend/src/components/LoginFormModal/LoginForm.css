@@ -1,0 +1,16 @@
+p {
+    color: red
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-button {
+    display: flex;
+    padding: 3px 5px;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+}

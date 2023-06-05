@@ -1,0 +1,23 @@
+ul {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 20px
+}
+
+li {
+    list-style-type: none;
+}
+
+.profile-dropdown {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-dropdown > li {
+    margin-top: 3px;
+    margin-bottom: 3px 
+}
+
+.hidden {
+    display: none;
+}

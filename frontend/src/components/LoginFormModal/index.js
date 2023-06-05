@@ -2,17 +2,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { thunkSetUser } from '../../store/session';
 import { useHistory, Redirect } from 'react-router-dom';
+import { useModal } from '../../context/Modal';
 import './LoginForm.css';
 
-const LoginFormPage = () => {
+const LoginFormModal = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({})
-
-    if (sessionUser) return <Redirect to='/' />;
+    const { closeModal } = useModal()
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -22,14 +22,13 @@ const LoginFormPage = () => {
             credential,
             password
         }))
+            .then(closeModal)
             .catch(
                 async (res) => {
                     const data= await res.json();
                     if (data && data.errors) setErrors(data.errors);
                 }
             );
-
-        // history.push('/')
     };
 
     return (
@@ -43,10 +42,10 @@ const LoginFormPage = () => {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 </label>
                 {errors.credential && <p className="errors">{errors.credential}</p>}
-                <button type='submit' onClick={(e) => onSubmit(e)}>Login</button>
+                <button id="login-button" type='submit' onClick={(e) => onSubmit(e)}>Login</button>
             </form>
         </>
     )
 };
 
-export default LoginFormPage;
+export default LoginFormModal;
