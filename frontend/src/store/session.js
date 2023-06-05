@@ -52,8 +52,7 @@ export const thunkSignUp = (user) => async dispatch => {
     });
 
     const data = await res.json();
-    console.log(data)
-    dispatch(setUser(data.user));
+    dispatch(setUser(data.User));
     return res;
 };
 
@@ -71,8 +70,7 @@ const initialState = { user: null }
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET:
-            return {...state,
-            user: action.user};
+            return { ...state, user: action.user}
         case REMOVE: 
             return {...state,
             user: null}

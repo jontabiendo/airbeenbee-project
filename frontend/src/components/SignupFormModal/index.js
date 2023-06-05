@@ -23,7 +23,6 @@ const SignupFormModal = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
         
         if (password === confirmPassword) {
             setErrors({});
