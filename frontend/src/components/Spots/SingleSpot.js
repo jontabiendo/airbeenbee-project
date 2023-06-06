@@ -4,17 +4,16 @@ import { thunkReadSpot } from '../../store/spots/singleSpotReducer';
 
 const SingleSpot = ({ spotId }) => {
     const dispatch = useDispatch();
+    const spotData = useSelector((state) => state.spots.singleSpot)
     const sessionUser = useSelector((state) => state.session.user);
 
-    let spotData;
-
     useEffect(() => {
-        spotData = dispatch(thunkReadSpot(spotId));
-    }, [])
+        dispatch(thunkReadSpot(spotId));
+    }, [dispatch])
 
     return (
         <>
-            {/* <h2>{spotData.name}</h2> */}
+            <h2>{spotData.name}</h2>
         </>
     )
 }
