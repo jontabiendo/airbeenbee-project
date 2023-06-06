@@ -30,7 +30,7 @@ const LoginFormModal = () => {
     };
 
     return (
-        <>
+        <div className="login-form">
             <h1>Log In</h1>
             <form onSubmit={onSubmit}>
                 <label for="credential">Username or Email:
@@ -42,7 +42,7 @@ const LoginFormModal = () => {
                 {errors.credential && <p className="errors">{errors.credential}</p>}
                 <button id="login-button" type='submit' onClick={(e) => onSubmit(e)}>Login</button>
             </form>
-        </>
+        </div>
     )
 };
 

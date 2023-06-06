@@ -19,6 +19,11 @@ const Navigation = ({ isLoaded }) => {
                     </NavLink>
                 </li>
                 <li>
+                    <NavLink to='/spots/new'>
+                        <p>Create a New Spot</p>
+                    </NavLink>
+                </li>
+                <li>
                     {isLoaded && <ProfileButton user={sessionUser} />}
                 </li>
             </ul>

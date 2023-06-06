@@ -49,7 +49,7 @@ const SignupFormModal = () => {
     };
 
     return (
-        <>
+        <div className='signup-form'>
             <h1>Sign Up</h1>
             <form onSubmit={onSubmit}>
                 <label for='username'>Username:
@@ -78,7 +78,7 @@ const SignupFormModal = () => {
                 {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
                 <button>Sign Up</button>
             </form>
-        </>
+        </div>
     )
 };
 

@@ -1,0 +1,39 @@
+#single-spot-div {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.single-spot-images {
+    display: flex;
+    width: 100%;
+}
+
+.single-spot-images > img {
+    width: 50%;
+}
+
+.normal-img {
+    width:50%;
+}
+
+.normal-img > img {
+    height: 50%;
+    width: 50%;
+    border:1px solid black;
+}
+
+.spot-action {
+    display: flex;
+    justify-content: space-between;
+    border: 2px solid black;
+    border-radius: 3px;
+}
+
+#reserve-button {
+    color: white;
+    background-color: #FF5A5F;
+    box-shadow: 2px 2px black;
+    padding: 3px 100px;
+}
