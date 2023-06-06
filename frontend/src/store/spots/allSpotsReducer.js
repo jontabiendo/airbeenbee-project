@@ -14,6 +14,7 @@ export const getAllSpotsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/spots');
 
     const data = await res.json();
+    
     dispatch(readAllSpots(data));
     return data;
 }
@@ -25,7 +26,7 @@ const allSpotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case READ:
             action.spots.Spots.forEach(spot => spots[spot.id] = spot)
-            return spots;
+            return spots? spots: state;
         default:
             return state
     }

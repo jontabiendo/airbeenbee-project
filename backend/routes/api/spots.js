@@ -691,9 +691,6 @@ router.get('/', async (req, res, next) => {
                 spot.previewImage = spotImage.url
             }
         })
-        if (!spot.previewImage) {
-            spot.previewImage = 'No preview image found'
-        }
         delete spot.SpotImages
     });
 
@@ -705,7 +702,7 @@ router.get('/', async (req, res, next) => {
             })
             spot.avgRating = count/spot.Reviews.length
         }
-        else spot.avgRating = 'No reviews have been submitted yet'
+        else spot.avgRating = 'NA'
 
         delete spot.Reviews
     })

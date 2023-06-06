@@ -43,7 +43,7 @@ export const thunkReadSpot = spotId => async dispatch => {
     return data;
 }
 
-const initialState = { singleSpot: null };
+const initialState = { singleSpot: {} };
 
 const singleSpotReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -51,7 +51,6 @@ const singleSpotReducer = (state = initialState, action) => {
             return {}
         case READ:
             return {
-                ...state,
                 singleSpot: action.spot
             }
         case UPDATE:
