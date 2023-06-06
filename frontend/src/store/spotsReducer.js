@@ -45,8 +45,8 @@ export const getSingleSpotThunk = (spotId) => async dispatch => {
 }
 
 const initialState = {
-    singleSpot: {},
-    allSpots: {}
+    singleSpot: null,
+    allSpots: null
 }
 
 const spotsReducer = (state = initialState, action) => {
