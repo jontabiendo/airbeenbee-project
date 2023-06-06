@@ -15,19 +15,17 @@ export const getAllSpotsThunk = () => async dispatch => {
 
     const data = await res.json();
     dispatch(readAllSpots(data));
-    console.log(data)
-    return res;
+    return data;
 }
 
-const initialState = { allSpots: [] }
+const initialState = { allSpots: {} }
 
 const allSpotsReducer = (state = initialState, action) => {
+    let spots = {}
     switch (action.type) {
         case READ:
-            return {
-                ...state,
-                allSpots: [...action.spots]
-            }
+            action.spots.Spots.forEach(spot => spots[spot.id] = spot)
+            return spots;
         default:
             return state
     }
