@@ -1,0 +1,21 @@
+div.spot-tile {
+    width: 400px;
+    height: 450px;
+    margin: 10px;
+    border: 1px solid black;
+}
+
+#spot-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.spot-tile > li > a > img {
+    width: 400px;
+    height: 300px;
+
+}
+
+a {
+    text-decoration: none
+}

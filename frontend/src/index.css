@@ -1,8 +1,4 @@
 /* TODO Add site wide styles */
-ul {
-    margin: 10px 20px;
-}
-
-li {
-    list-style-type: none;
+body {
+    margin: 0px
 }

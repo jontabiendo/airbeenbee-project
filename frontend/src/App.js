@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { Switch, Route, Link } from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation';
-import SingleSpot from './components/Spots/SingleSpot';
 import AllSpots from './components/Spots/AllSpots';
 
 function App() {
@@ -20,12 +19,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route exact path='/spots/1'>
-            <SingleSpot spotId={1}/>
-          </Route>
-          <Route exact path='/spots'>
-            <AllSpots />
-          </Route>
+            <Route path='/'>
+              <AllSpots />
+            </Route>
         </Switch>
       )}
       </>

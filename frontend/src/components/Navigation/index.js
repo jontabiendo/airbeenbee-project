@@ -11,16 +11,18 @@ const Navigation = ({ isLoaded }) => {
 
 
     return (
-        <ul>
-            <li>
-                <NavLink to='/'>
-                    Home
-                </NavLink>
-            </li>
-            <li>
-                {isLoaded && <ProfileButton user={sessionUser} />}
-            </li>
-        </ul>
+        <div id="navigation">
+            <ul>
+                <li id='home'>
+                    <NavLink to='/'>
+                        <h1>airbnb</h1>
+                    </NavLink>
+                </li>
+                <li>
+                    {isLoaded && <ProfileButton user={sessionUser} />}
+                </li>
+            </ul>
+        </div>
     )
 };
 

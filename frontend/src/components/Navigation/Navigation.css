@@ -1,7 +1,14 @@
-ul {
+div#navigation {
+    width: 100%;
+    border-bottom: 1px solid gray;
+}
+
+#navigation > ul {
     display: flex;
     justify-content: space-between;
-    margin: 10px 20px
+    margin: 10px 20px;
+    align-items: center;
+    padding: 0px 10px;
 }
 
 li {
@@ -20,4 +27,8 @@ li {
 
 .hidden {
     display: none;
+}
+
+#home > a {
+    text-decoration: none;
 }
