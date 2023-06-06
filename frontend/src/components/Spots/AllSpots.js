@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, Route } from 'react-router-dom'
-import { getAllSpotsThunk } from '../../store/spots/spotsReducer';
+import { getAllSpotsThunk } from '../../store/spotsReducer';
 import SpotTile from './SpotTile';
 
 const AllSpots = () => {

@@ -1,4 +1,4 @@
-import { csrfFetch } from '../csrf';
+import { csrfFetch } from './csrf';
 import thunk from 'redux-thunk';
 
 const GET_ALL_SPOTS = '/spots/GET/all';
@@ -14,10 +14,10 @@ const readAllSpots = spots => {
     }
 };
 
-const getSingleSpotAction = spotId => {
+const getSingleSpotAction = spot => {
     return {
         type: GET_SINGLE_SPOT,
-        spotId
+        spot
     }
 }
 
@@ -39,7 +39,6 @@ export const getSingleSpotThunk = (spotId) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
 
     const data = await res.json();
-    console.log(data)
 
     dispatch(getSingleSpotAction(data))
     return data;
@@ -56,6 +55,11 @@ const spotsReducer = (state = initialState, action) => {
             const newState = {...state};
             newState.allSpots = {...action.spots}
             return newState;
+        case GET_SINGLE_SPOT:
+            return {
+                ...state,
+                singleSpot: action.spot
+            }
         default:
             return state
     }

@@ -1,22 +1,25 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect, useContext } from 'react';
-import { thunkReadSpot } from '../../store/spots/singleSpotReducer';
+import { getSingleSpotThunk } from '../../store/spotsReducer';
 import { useParams } from 'react-router-dom';
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
     const spotData = useSelector((state) => state.spots.singleSpot);
     const { spotId } = useParams();
+    console.log(spotId)
 
     useEffect(() => {
-        dispatch(thunkReadSpot(spotId));
+        dispatch(getSingleSpotThunk(spotId));
     }, [dispatch])
 
     if (!spotData) return null;
 
+    console.log('spotData ', spotData)
+
     return (
         <>
-            <h2>Spot info</h2>
+            <h2>{spotData.name}</h2>
         </>
     )
 }
