@@ -1,10 +1,17 @@
-import { Route, Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react'
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteSpotModal from './DeleteSpotModal';
 
 import './SpotTile.css';
 
 const SpotTile = ({ spotData, manage }) => {
     const { id, previewImage, city, state, price, avgRating } = spotData;
+    const dispatch = useDispatch()
+    const [showMenu, setShowMenu] = useState(false);
 
+    const closeMenu = () => setShowMenu(false);
 
 
     return (
@@ -19,10 +26,14 @@ const SpotTile = ({ spotData, manage }) => {
                     <p>${price} night</p>
                     </div>
             </Link>
-            {manage ? (<Link to={`/spots/${id}/edit`}>
-                Update
-            </Link>) : null}
-            {manage ? <button>Delete</button> : null}
+            {manage ? (
+                <>
+                    <Link to={`/spots/${id}/edit`}>
+                        Update
+                    </Link>
+                    <OpenModalMenuItem itemText="Delete Spot" onItemClick={closeMenu} modalComponent={<DeleteSpotModal />} />
+                </>
+            ) : null }
         </div>
     )
 }

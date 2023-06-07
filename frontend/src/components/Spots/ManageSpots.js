@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import SpotTile from './SpotTile';
 import { getUserSpotsThunk } from '../../store/spotsReducer';
 
+import './SpotTile.css'
+
 const ManageSpots = () => {
     const dispatch = useDispatch();
     const userSpots = useSelector((state) => state.spots.allSpots.Spots);
@@ -21,7 +23,7 @@ const ManageSpots = () => {
                 <h1>Manage Your Spots</h1>
                 <button>Create a New Spot</button>
             </div>
-            <ul className='manage-spots-list'>
+            <ul id="spot-list">
                 {Object.values(userSpots).map(spot => 
                     <li>
                         <SpotTile manage='manage' spotData={spot} />

@@ -27,7 +27,15 @@ const EditSpotForm = () => {
     useEffect(() => {
         const onLoad = async () => {
             dispatch(getSingleSpotThunk(spotId))
-                .then(res => console.log('res from dispatch ', res))
+                .then(res => {
+                    setCountry(res.country);
+                    setAddress(res.address);
+                    setCity(res.city);
+                    setState(res.state);
+                    setDescription(res.description);
+                    setTitle(res.name);
+                    setPrice(res.price)
+                })
         }
         onLoad()
     }, [dispatch])
