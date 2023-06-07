@@ -1,9 +1,12 @@
 import { Route, Link } from 'react-router-dom';
+import CreateSpot from './CreateSpot';
 
 import './SpotTile.css';
 
-const SpotTile = ({ spotData }) => {
+const SpotTile = ({ spotData, manage }) => {
     const { id, previewImage, city, state, price, avgRating } = spotData;
+
+
 
     return (
         <div className='spot-tile' key={id}>
@@ -17,6 +20,10 @@ const SpotTile = ({ spotData }) => {
                     <p>${price} night</p>
                     </div>
             </Link>
+            {manage ? (<Link to={`/spots/${id}/edit`}>
+                Update
+            </Link>) : null}
+            {manage ? <button>Delete</button> : null}
         </div>
     )
 }

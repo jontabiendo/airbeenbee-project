@@ -80,10 +80,18 @@ export const createSpotThunk = (spot) => async dispatch => {
             })
         })
     }
-
-    // dispatch(getSingleSpotThunk(data.id))
     return data;
 };
+
+export const getUserSpotsThunk = () => async dispatch => {
+    const res = await csrfFetch(`/api/spots/current`);
+
+    const data = await res.json();
+    console.log(data)
+
+    dispatch(readAllSpots(data))
+    return data;
+}
 
 const initialState = {
     singleSpot: null,

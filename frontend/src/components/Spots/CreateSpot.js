@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { createSpotThunk } from '../../store/spotsReducer';
 import { useHistory, Redirect } from 'react-router-dom';
 
-const CreateSpot = () => {
+const CreateSpot = ({ spotData }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const [country, setCountry] = useState('');
@@ -50,7 +50,7 @@ const CreateSpot = () => {
     }
     return (
         <div className="create-spot-component">
-            <h2>Create a new Spot</h2>
+            {spotData ? <h2>Update your Spot</h2> : <h2>Create a new Spot</h2>}
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <form onSubmit={handleSubmit}>
