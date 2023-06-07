@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { thunkLogout } from "../../store/session";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
@@ -50,6 +51,7 @@ const ProfileButton = ({ user }) => {
                         <li>{user.username}</li>
                         <li>{user.firstName} {user.lastName}</li>
                         <li>{user.email}</li>
+                        <Link to='/spots/current'>Manage Spots</Link>
                         <li>
                             <button onClick={logout}>Log Out</button>
                         </li>

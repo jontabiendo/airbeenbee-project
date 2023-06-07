@@ -42,7 +42,48 @@ export const getSingleSpotThunk = (spotId) => async dispatch => {
 
     dispatch(getSingleSpotAction(data))
     return data;
-}
+};
+
+export const createSpotThunk = (spot) => async dispatch => {
+    const { country, address, city, state, description, title, price, images } = spot;
+    
+    const res = await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            country,
+            address,
+            city,
+            state,
+            description,
+            name: title,
+            price,
+            lng: -122.4730327,
+            lat: 37.7645358
+        })
+    });
+
+    const data = await res.json();
+
+    for await (const img of images) {
+        const { preview, url } = img;
+        const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                preview,
+                url
+            })
+        })
+    }
+
+    // dispatch(getSingleSpotThunk(data.id))
+    return data;
+};
 
 const initialState = {
     singleSpot: null,

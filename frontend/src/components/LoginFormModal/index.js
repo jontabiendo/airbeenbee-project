@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { thunkSetUser } from '../../store/session';
 import { useModal } from '../../context/Modal';
 import './LoginForm.css';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const LoginFormModal = () => {
     const dispatch = useDispatch();
@@ -10,7 +11,8 @@ const LoginFormModal = () => {
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({})
-    const { closeModal } = useModal()
+    const { closeModal } = useModal();
+    const history = useHistory()
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -24,19 +26,21 @@ const LoginFormModal = () => {
             .catch(
                 async (res) => {
                     const data= await res.json();
+                    if(!data.errors) history.push('/')
                     if (data && data.errors) setErrors(data.errors);
                 }
             );
+
     };
 
     return (
         <div className="login-form">
             <h1>Log In</h1>
             <form onSubmit={onSubmit}>
-                <label for="credential">Username or Email:
+                <label htmlFor="credential">Username or Email:
                     <input type="text" name="credential" value={credential} onChange={(e) => setCredential(e.target.value)}></input>
                 </label>
-                <label for="password">Password:
+                <label htmlFor="password">Password:
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 </label>
                 {errors.credential && <p className="errors">{errors.credential}</p>}

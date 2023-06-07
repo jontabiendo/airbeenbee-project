@@ -13,7 +13,7 @@ export function ModalProvider({ children }) {
     const closeModal = () => {
         setModalContent(null);
 
-        if (typeof onModalClsoe === "function") {
+        if (typeof onModalClose === "function") {
             setOnModalClose(null);
             onModalClose();
         }

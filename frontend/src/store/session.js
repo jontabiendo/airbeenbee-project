@@ -28,7 +28,7 @@ export const thunkSetUser = user => async dispatch => {
 
     const data = await res.json();
     dispatch(setUser(data.user));
-    return res;
+    return data;
 };
 
 export const restoreUser = () => async dispatch => {

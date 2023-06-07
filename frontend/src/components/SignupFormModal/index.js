@@ -40,7 +40,6 @@ const SignupFormModal = () => {
                         if (data && data.errors) setErrors(data.errors);
                     }
                 );
-
         };
 
         return setErrors({
@@ -52,27 +51,27 @@ const SignupFormModal = () => {
         <div className='signup-form'>
             <h1>Sign Up</h1>
             <form onSubmit={onSubmit}>
-                <label for='username'>Username:
+                <label htmlFor='username'>Username:
                     <input type='text' name='username' value={username} onChange={(e) => setUserName(e.target.value)} /> 
                 </label>
                 {errors.username && <p className='errors'>{errors.username}</p>}
-                <label for='firstName'>First Name:
+                <label htmlFor='firstName'>First Name:
                     <input type='text' name='firstName' value={firstName} onChange={(e) => setFirstName(e.target.value)} /> 
                 </label>
                 {errors.firstName && <p className='errors'>{errors.firstName}</p>}
-                <label for='lastName'>Last Name:
+                <label htmlFor='lastName'>Last Name:
                     <input type='text' name='lastName' value={lastName} onChange={(e) => setLastName(e.target.value)} /> 
                 </label>
                 {errors.lastName && <p className='errors'>{errors.lastName}</p>}
-                <label for='email'>Email:
+                <label htmlFor='email'>Email:
                     <input type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} /> 
                 </label>
                 {errors.email && <p className='errors'>{errors.email}</p>}
-                <label for='password'>Password:
+                <label htmlFor='password'>Password:
                     <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} /> 
                 </label>
                 {errors.password && <p className='errors'>{errors.password}</p>}
-                <label for='confirmPassword'>Password:
+                <label htmlFor='confirmPassword'>Password:
                     <input type='password' name='confirmPassword' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /> 
                 </label>
                 {errors.confirmPassword && <p>{errors.confirmPassword}</p>}

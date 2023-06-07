@@ -95,7 +95,6 @@ const validateImg = [
         .notEmpty()
         .withMessage('URL cannot be empty'),
     check('preview')
-        .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage("Please input 'true' or 'false'"),
     check('preview')

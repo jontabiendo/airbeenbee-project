@@ -30,13 +30,13 @@ const SingleSpot = () => {
             <h2>{spotData.name}</h2>
             <h4>{spotData.city}, {spotData.state}, {spotData.country}</h4>
             <div className="single-spot-images">
-                <img src={preview.url} alt="spot preview image"></img>
-                <div className='normal-img'>
-                    <img src={images.shift() ? images.shift().url : "no image"} alt="spot image"></img>
-                    <img src={images.shift() ? images.shift().url : "no image"} alt="spot image"></img>
-                    <img src={images.shift() ? images.shift().url : "no image"} alt="spot image"></img>
-                    <img src={images.shift() ? images.shift().url : "no image"} alt="spot image"></img>
-                </div>
+                <img src={preview[0].url} alt="spot preview image"></img>
+                {images.length ? <div className='normal-img'>
+                    <img src={images.shift().url} alt="spot image"></img>
+                    <img src={images.shift().url} alt="spot image"></img>
+                    <img src={images.shift().url} alt="spot image"></img>
+                    <img src={images.shift().url} alt="spot image"></img>
+                </div> : null}
             </div>
             <div className="spot-desc-actions">
                 <div className="spot-desc">
@@ -46,7 +46,9 @@ const SingleSpot = () => {
                 <div className="spot-action">
                     <div id="action-info">
                         <p>${spotData.price} night</p>
-                        <p><i className="fa-solid fa-star"></i> {spotData.avgRating} - {spotData.numReviews} reviews</p>
+                        <p><i className="fa-solid fa-star"></i> </p>
+                        {spotData.numReviews > 0 && <p>{spotData.avgStarRating} - {spotData.numReviews} reviews</p>}
+                        {spotData.numReviews === 0 && <p> New</p>}
                     </div>
                     <button onClick={() => alert('Feature Coming Soon...')}id="reserve-button">Reserve</button>
                 </div>
