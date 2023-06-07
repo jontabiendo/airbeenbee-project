@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { createSpotThunk } from '../../store/spotsReducer';
-import { useHistory, Redirect } from 'react-router-dom';
+import { editSpotThunk, getSingleSpotThunk } from '../../store/spotsReducer';
+import { useHistory, useParams } from 'react-router-dom';
 
-const CreateSpot = ({ spotData }) => {
+const EditSpotForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [country, setCountry] = useState('');
+    const spotEdit = useSelector((state) => state.spots.singleSpot)
+
+    const [country, setCountry] = useState("")
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
@@ -18,16 +20,27 @@ const CreateSpot = ({ spotData }) => {
     const [img2, setImg2] = useState({url: '', preview: false})
     const [img3, setImg3] = useState({url: '', preview: false})
     const [img4, setImg4] = useState({url: '', preview: false})
-    const [errors, setErrors] = useState({});
-    const newSpot = useSelector((state) => state.spots.singleSpot)
 
+    const [errors, setErrors] = useState({});
+    const { spotId } = useParams();
+
+    useEffect(() => {
+        const onLoad = async () => {
+            dispatch(getSingleSpotThunk(spotId))
+                .then(res => console.log('res from dispatch ', res))
+        }
+        onLoad()
+    }, [dispatch])
+
+    if (!spotEdit) return null    
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         setErrors({});
 
-        dispatch(createSpotThunk({
+        dispatch(editSpotThunk({
+            id: spotId,
             country,
             address,
             city,
@@ -50,13 +63,13 @@ const CreateSpot = ({ spotData }) => {
     }
     return (
         <div className="create-spot-component">
-            {spotData ? <h2>Update your Spot</h2> : <h2>Create a new Spot</h2>}
+            <h2>Update your Spot</h2>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
             <form onSubmit={handleSubmit}>
                 <div className='create-spot-address'>
                     <label htmlFor='country'>Country </label>{errors.countr && <span className='errors'>{errors.country}</span>}
-                    <input type='text' name='country' placeholder='Country'value={country} onChange={(e) => setCountry(e.target.value)} required={true}></input>
+                    <input type='text' name='country' placeholder='Country' value={country} onChange={(e) => setCountry(e.target.value)} required={true}></input>
                     <label htmlFor='address'>Street Address </label>{errors.address && <span className='errors'>{errors.address}</span>}
                     <input type='text' name='address' placeholder='Address'value={address} onChange={(e) => setAddress(e.target.value)} required={true}></input>
                     <label htmlFor='city'>City</label>
@@ -67,7 +80,7 @@ const CreateSpot = ({ spotData }) => {
                 <div className='create-spot-desc'>
                     <h3>Describe your place to guests</h3>
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
-                    <input type='textarea' placeholder="Please write at least 30 characters" value={description} onChange={(e) => setDescription(e.target.value)} required={true}></input>
+                    <textarea placeholder="Please write at least 30 characters" value={description} onChange={(e) => setDescription(e.target.value)} required={true}></textarea>
                 </div>
                 <div className='create-spot-title'>
                     <h3>Create a title for your spot</h3>
@@ -94,4 +107,4 @@ const CreateSpot = ({ spotData }) => {
     )
 }
 
-export default CreateSpot;
+export default EditSpotForm;

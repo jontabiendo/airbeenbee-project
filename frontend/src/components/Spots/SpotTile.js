@@ -1,5 +1,4 @@
 import { Route, Link } from 'react-router-dom';
-import CreateSpot from './CreateSpot';
 
 import './SpotTile.css';
 

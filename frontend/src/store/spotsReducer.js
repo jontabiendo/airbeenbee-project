@@ -19,6 +19,13 @@ const getSingleSpotAction = spot => {
         type: GET_SINGLE_SPOT,
         spot
     }
+};
+
+const updateSpotAction = spot => {
+    return {
+        type: PUT_SINGLE_SPOT,
+        spot
+    }
 }
 
 export const getAllSpotsThunk = () => async dispatch => {
@@ -83,27 +90,68 @@ export const createSpotThunk = (spot) => async dispatch => {
     return data;
 };
 
+export const editSpotThunk = (spot) => async dispatch => {
+    const { country, address, city, state, description, title, price, images, id } = spot;
+    console.log(spot)
+    
+    const res = await csrfFetch(`/api/spots/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            country,
+            address,
+            city,
+            state,
+            description,
+            name: title,
+            price,
+            lng: -122.4730327,
+            lat: 37.7645358
+        })
+    });
+
+    const data = await res.json();
+
+    for await (const img of images) {
+        const { preview, url } = img;
+        const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                preview,
+                url
+            })
+        })
+    }
+    return data;
+}
+
 export const getUserSpotsThunk = () => async dispatch => {
     const res = await csrfFetch(`/api/spots/current`);
 
     const data = await res.json();
-    console.log(data)
+    console.log('getUserSpotsThunk ', data)
 
     dispatch(readAllSpots(data))
     return data;
 }
 
 const initialState = {
-    singleSpot: null,
-    allSpots: null
+    singleSpot: {},
+    allSpots: {}
 }
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS:
-            const newState = {...state};
-            newState.allSpots = {...action.spots}
-            return newState;
+            return {
+                ...state,
+                allSpots: action.spots
+            }
         case GET_SINGLE_SPOT:
             return {
                 ...state,
