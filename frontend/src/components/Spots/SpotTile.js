@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import OpenModalButton from '../OpenModalButton';
 import DeleteSpotModal from './DeleteSpotModal';
 
 import './SpotTile.css';
@@ -31,7 +31,7 @@ const SpotTile = ({ spotData, manage }) => {
                     <Link to={`/spots/${id}/edit`}>
                         Update
                     </Link>
-                    <OpenModalMenuItem itemText="Delete Spot" onItemClick={closeMenu} modalComponent={<DeleteSpotModal />} />
+                    <OpenModalButton buttonText="Delete" onButtonClick={closeMenu} modalComponent={<DeleteSpotModal id={id} />} />
                 </>
             ) : null }
         </div>

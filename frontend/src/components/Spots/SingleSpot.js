@@ -16,7 +16,9 @@ const SingleSpot = () => {
         dispatch(getSingleSpotThunk(spotId));
     }, [dispatch])
 
-    if (!spotData) return null;
+    if (!Object.values(spotData).length) return null;
+
+    console.log(spotData)
 
     const images = [...spotData.SpotImages]
     const preview = images.splice(images.find(img => img.preview === true), 1)

@@ -21,10 +21,10 @@ const getSingleSpotAction = spot => {
     }
 };
 
-const updateSpotAction = spot => {
+const deleteSpotAction = id => {
     return {
-        type: PUT_SINGLE_SPOT,
-        spot
+        type: DELETE_SINGLE_SPOT,
+        id
     }
 }
 
@@ -46,6 +46,7 @@ export const getSingleSpotThunk = (spotId) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
 
     const data = await res.json();
+    console.log(data)
 
     dispatch(getSingleSpotAction(data))
     return data;
@@ -138,6 +139,18 @@ export const getUserSpotsThunk = () => async dispatch => {
 
     dispatch(readAllSpots(data))
     return data;
+};
+
+export const deleteSpotThunk = (id) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${id}`, {
+        method: 'DELETE'
+    })
+
+    const data = await res.json()
+
+    dispatch(deleteSpotAction(id))
+
+    return data;
 }
 
 const initialState = {
@@ -148,15 +161,21 @@ const initialState = {
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS:
+            const allSpotsObj = {}
+            action.spots.Spots.forEach(spot => allSpotsObj[spot.id] = spot)
             return {
                 ...state,
-                allSpots: action.spots
+                allSpots: allSpotsObj
             }
         case GET_SINGLE_SPOT:
             return {
                 ...state,
                 singleSpot: action.spot
             }
+        case DELETE_SINGLE_SPOT:
+            const newState = {...state}
+            delete newState.allSpots[action.id]
+            return newState;
         default:
             return state
     }

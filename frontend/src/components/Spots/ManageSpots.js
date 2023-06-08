@@ -7,11 +7,11 @@ import './SpotTile.css'
 
 const ManageSpots = () => {
     const dispatch = useDispatch();
-    const userSpots = useSelector((state) => state.spots.allSpots.Spots);
+    const userSpots = useSelector((state) => state.spots.allSpots);
 
     useEffect(() => {
         dispatch(getUserSpotsThunk())
-    }, [dispatch]);
+    }, [dispatch, userSpots]);
 
     if(!userSpots) return null;
 
