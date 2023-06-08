@@ -15,11 +15,6 @@ const EditSpotForm = () => {
     const [description, setDescription] = useState('');
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
-    const [previewImg, setPreviewImg] = useState({url: '', preview: true});
-    const [img1, setImg1] = useState({url: '', preview: false})
-    const [img2, setImg2] = useState({url: '', preview: false})
-    const [img3, setImg3] = useState({url: '', preview: false})
-    const [img4, setImg4] = useState({url: '', preview: false})
 
     const [errors, setErrors] = useState({});
     const { spotId } = useParams();
@@ -55,14 +50,7 @@ const EditSpotForm = () => {
             state,
             description,
             title,
-            price,
-            images: [
-                previewImg,
-                img1,
-                img2,
-                img3,
-                img4
-            ]
+            price
         }))
             .then( async res => {
                 if (res && res.errors) setErrors(res.errors)
@@ -99,17 +87,8 @@ const EditSpotForm = () => {
                     <h3>Set a base price for your spot</h3>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
                     <span>$ </span> <input type='number' placeholder='Price per night (USD)' value={price} onChange={(e) => setPrice(e.target.value)} required={true}></input>
-                </div>
-                <div className='create-spot-photos'>
-                    <h3>Liven up your spot with photos</h3>
-                    <p>Submit a link to at least one photo to publish your spot.</p>
-                    <input type='url' placeholder='PreviewImage URL' value={previewImg.url} onChange={(e) => setPreviewImg({preview: true, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img1.url} onChange={(e) => setImg1({preview: false, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img2.url} onChange={(e) => setImg2({preview: false, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img3.url} onChange={(e) => setImg3({preview: false, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img4.url} onChange={(e) => setImg4({preview: false, url: e.target.value})} required={true}></input>
-                </div>
-                <button type='submit'>Create Spot</button>
+                </div>            
+                <button type='submit'>Update Spot</button>
             </form>
         </div>
     )

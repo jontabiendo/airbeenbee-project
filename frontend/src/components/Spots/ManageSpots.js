@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SpotTile from './SpotTile';
 import { getUserSpotsThunk } from '../../store/spotsReducer';
+import { useHistory } from 'react-router-dom';
 
 import './SpotTile.css'
 
 const ManageSpots = () => {
     const dispatch = useDispatch();
+    const history = useHistory()
     const userSpots = useSelector((state) => state.spots.allSpots);
 
     useEffect(() => {
         dispatch(getUserSpotsThunk())
-    }, [dispatch, userSpots]);
+    }, [dispatch]);
 
     if(!userSpots) return null;
 

@@ -24,7 +24,6 @@ export const getSpotReviewsThunk = (spotId) => async dispatch => {
         normalizedData[review.id] = review
     });
     
-    console.log(normalizedData)
     dispatch(getSpotReviewsAction(normalizedData));
     return data;
 }

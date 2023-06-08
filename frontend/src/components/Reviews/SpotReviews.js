@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { getSpotReviewsThunk } from '../../store/reviewsReducer';
-// import ReviewTile from './ReviewTile'
+import ReviewTile from './ReviewTile'
 
 const SpotReviews = ({ spotId }) => {
     const dispatch = useDispatch();
@@ -11,9 +11,18 @@ const SpotReviews = ({ spotId }) => {
         dispatch(getSpotReviewsThunk(spotId))
     }, [dispatch])
 
+    if(!Object.values(reviewsData).length) return null;
+
     return (
-        <h2>Reviews</h2>
-        
+        <div className="spot-reviews-div">
+            <ul>
+                {Object.values(reviewsData).map(review => (
+                    <li key={review.id}>
+                        <ReviewTile reviewData={review} />
+                    </li>
+                ))}
+            </ul>
+        </div>
     )
 }
 

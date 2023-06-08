@@ -32,6 +32,7 @@ export const getAllSpotsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/spots');
 
     const data = await res.json();
+    console.log('getting all spots', typeof data)
 
     const normalizedData = {}
     Object.values(data.Spots).forEach(spot => {
@@ -46,7 +47,6 @@ export const getSingleSpotThunk = (spotId) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}`);
 
     const data = await res.json();
-    console.log(data)
 
     dispatch(getSingleSpotAction(data))
     return data;
@@ -114,20 +114,6 @@ export const editSpotThunk = (spot) => async dispatch => {
     });
 
     const data = await res.json();
-
-    for await (const img of images) {
-        const { preview, url } = img;
-        const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                preview,
-                url
-            })
-        })
-    }
     return data;
 }
 
@@ -135,9 +121,14 @@ export const getUserSpotsThunk = () => async dispatch => {
     const res = await csrfFetch(`/api/spots/current`);
 
     const data = await res.json();
+    console.log(typeof data)
     console.log('getUserSpotsThunk ', data)
+    const normalizedData = {}
+    Object.values(data.Spots).forEach(spot => {
+        normalizedData[spot.id] = spot
+    })
 
-    dispatch(readAllSpots(data))
+    dispatch(readAllSpots(normalizedData))
     return data;
 };
 
@@ -161,11 +152,9 @@ const initialState = {
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS:
-            const allSpotsObj = {}
-            action.spots.Spots.forEach(spot => allSpotsObj[spot.id] = spot)
             return {
                 ...state,
-                allSpots: allSpotsObj
+                allSpots: action.spots
             }
         case GET_SINGLE_SPOT:
             return {
@@ -173,7 +162,7 @@ const spotsReducer = (state = initialState, action) => {
                 singleSpot: action.spot
             }
         case DELETE_SINGLE_SPOT:
-            const newState = {...state}
+            const newState = {...state, allSpots: {...state.allSpots}}
             delete newState.allSpots[action.id]
             return newState;
         default:

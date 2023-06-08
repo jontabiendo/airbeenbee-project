@@ -3,13 +3,19 @@ import React, { useState, useEffect } from 'react';
 import { getSingleSpotThunk } from '../../store/spotsReducer';
 import { useParams } from 'react-router-dom';
 import SpotReviews from '../Reviews/SpotReviews';
+import OpenModalButton from '../OpenModalButton';
+import ReviewFormModal from '../Reviews/ReviewFormModal';
 
 import './singleSpot.css'
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
     const spotData = useSelector((state) => state.spots.singleSpot);
+    const sessionUser = useSelector((state) => state.session.user)
     const { spotId } = useParams();
+    const [showMenu, setShowMenu] = useState(false);
+
+    const closeMenu = () => setShowMenu(false);
 
     useEffect(() => {
         dispatch(getSingleSpotThunk(spotId));
@@ -17,14 +23,10 @@ const SingleSpot = () => {
 
     if (!Object.values(spotData).length) return null;
 
-    console.log(spotData)
-
     const images = [...spotData.SpotImages]
     const preview = images.splice(images.find(img => img.preview === true), 1)
     const imagesObj = {}
     images.forEach(img => imagesObj[img.id] = img)
-
-    console.log(spotData)
 
     return (
         <>
@@ -56,7 +58,14 @@ const SingleSpot = () => {
                 </div>
             </div>
         </div>
-            <SpotReviews spotId={spotData.id} />
+        <div>
+            <h3><i className="fa-solid fa-star"></i> {spotData.numReviews > 0 && <p>{spotData.avgStarRating} - {spotData.numReviews} reviews</p>}
+                        {spotData.numReviews === 0 && <p> New</p>}</h3>
+            {sessionUser && <div>
+                <OpenModalButton buttonText="Post Your Review" onButtonClick={closeMenu} modalComponent={<ReviewFormModal  />} />
+                </div>}
+        </div>
+        <SpotReviews spotId={spotData.id} />
         </>
     )
 }
