@@ -13,7 +13,6 @@ const SpotTile = ({ spotData, manage }) => {
 
     const closeMenu = () => setShowMenu(false);
 
-
     return (
         <div className='spot-tile' key={id}>
             <Link to={`/spots/${id}`}>

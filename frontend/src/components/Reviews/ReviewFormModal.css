@@ -1,0 +1,11 @@
+.rating-input .filled {
+    color: black
+}
+
+.rating-input .empty {
+    color: gray
+}
+
+.rating-input {
+    display: flex;
+}

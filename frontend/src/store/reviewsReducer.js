@@ -11,7 +11,14 @@ const getSpotReviewsAction = reviews => {
         type: GET_REVIEWS,
         reviews
     }
-}
+};
+
+const createSpotReviewAction = review => {
+    return {
+        type: POST_REVIEW,
+        review
+    }
+};
 
 export const getSpotReviewsThunk = (spotId) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
@@ -25,6 +32,27 @@ export const getSpotReviewsThunk = (spotId) => async dispatch => {
     });
     
     dispatch(getSpotReviewsAction(normalizedData));
+    return data;
+};
+
+export const createSpotReviewThunk = (submission) => async dispatch => {
+    console.log(submission)
+    const { id, review, stars } = submission;
+
+    const res = await csrfFetch(`/api/spots/${id}/reviews`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            review,
+            stars
+        })
+    });
+
+    const data = await res.json();
+    console.log(data)
+    dispatch(createSpotReviewAction(data))
     return data;
 }
 
@@ -40,6 +68,10 @@ const reviewsReducer = (state = initialState, action) => {
                 ...state,
                 spot: action.reviews
             }
+            case POST_REVIEW:
+                const newState = {...state};
+                newState.spot[action.review.id] = action.review
+                return newState
         default:
             return state;
     }

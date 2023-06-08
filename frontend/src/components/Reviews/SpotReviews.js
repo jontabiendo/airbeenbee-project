@@ -3,20 +3,20 @@ import React, { useState, useEffect } from 'react';
 import { getSpotReviewsThunk } from '../../store/reviewsReducer';
 import ReviewTile from './ReviewTile'
 
-const SpotReviews = ({ spotId }) => {
+const SpotReviews = ({ spotId, spotReviews }) => {
     const dispatch = useDispatch();
-    const reviewsData = useSelector((state) => state.reviews.spot)
+    // const reviewsData = useSelector((state) => state.reviews.spot)
 
-    useEffect(() => {
-        dispatch(getSpotReviewsThunk(spotId))
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getSpotReviewsThunk(spotId))
+    // }, [dispatch])
 
-    if(!Object.values(reviewsData).length) return null;
+    // if(!Object.values(reviewsData).length) return null;
 
     return (
         <div className="spot-reviews-div">
             <ul>
-                {Object.values(reviewsData).map(review => (
+                {Object.values(spotReviews).map(review => (
                     <li key={review.id}>
                         <ReviewTile reviewData={review} />
                     </li>
