@@ -37,3 +37,8 @@
     box-shadow: 2px 2px black;
     padding: 3px 100px;
 }
+
+#single-spot-div {
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+}

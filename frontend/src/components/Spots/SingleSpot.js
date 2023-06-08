@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getSingleSpotThunk } from '../../store/spotsReducer';
 import { useParams } from 'react-router-dom';
+import SpotReviews from '../Reviews/SpotReviews';
 
 import './singleSpot.css'
-
-
 
 const SingleSpot = () => {
     const dispatch = useDispatch();
@@ -28,6 +27,7 @@ const SingleSpot = () => {
     console.log(spotData)
 
     return (
+        <>
         <div id="single-spot-div">
             <h2>{spotData.name}</h2>
             <h4>{spotData.city}, {spotData.state}, {spotData.country}</h4>
@@ -56,6 +56,8 @@ const SingleSpot = () => {
                 </div>
             </div>
         </div>
+            <SpotReviews spotId={spotData.id} />
+        </>
     )
 }
 
