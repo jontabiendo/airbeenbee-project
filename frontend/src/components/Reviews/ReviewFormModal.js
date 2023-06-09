@@ -10,14 +10,22 @@ const ReviewFormModal = ({ id }) => {
     const [review, setReview] = useState('');
     const [currentStars, setCurrentStars] = useState(0)
     const [disabled, setDisabled] = useState(false)
+    const [errors, setErrors] = useState({})
 
     const handleSubmit = async () => {
-        dispatch(createSpotReviewThunk({
+        setErrors({});
+
+        await dispatch(createSpotReviewThunk({
             id,
             review,
             stars: currentStars
         }))
-            .then(closeModal())
+            .then(closeModal)
+            .catch( async res => {
+                const data = await res.json()
+                if (data.errors) return setErrors(data.errors)
+                else if (data.message) return setErrors(data.message)
+            })
     }
 
     const onChange = (number) => {
@@ -29,8 +37,7 @@ const ReviewFormModal = ({ id }) => {
         if (currentStars >= num) return "filled"
         else return "empty"
       }
-
-    //   console.log(currentStars, disabled)
+      console.log(errors)
 
     return (
         <>
@@ -53,6 +60,7 @@ const ReviewFormModal = ({ id }) => {
         <i className="fa-solid fa-star"></i>
         </div>
       </div>
+            {errors && <p className='errors'>{errors.message}</p>}
             <button onClick={handleSubmit} disabled={review.length < 10}>Submit Your Review</button>
         </>
     )

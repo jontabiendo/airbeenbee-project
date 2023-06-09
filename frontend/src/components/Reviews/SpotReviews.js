@@ -12,6 +12,7 @@ const SpotReviews = ({ spotId, spotReviews }) => {
     // }, [dispatch])
 
     // if(!Object.values(reviewsData).length) return null;
+    console.log('spot reviews pre-render ', spotReviews)
 
     return (
         <div className="spot-reviews-div">

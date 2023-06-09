@@ -32,6 +32,7 @@ export const getSpotReviewsThunk = (spotId) => async dispatch => {
     });
     
     dispatch(getSpotReviewsAction(normalizedData));
+    console.log(data, '***', normalizedData)
     return data;
 };
 
@@ -49,10 +50,11 @@ export const createSpotReviewThunk = (submission) => async dispatch => {
             stars
         })
     });
+    console.log('res from fetch ', res)
 
     const data = await res.json();
     console.log(data)
-    dispatch(createSpotReviewAction(data))
+    if (res.ok) dispatch(createSpotReviewAction(data))
     return data;
 }
 
@@ -69,7 +71,9 @@ const reviewsReducer = (state = initialState, action) => {
                 spot: action.reviews
             }
             case POST_REVIEW:
-                const newState = {...state};
+                const newState = {...state,
+                spot: {...state.spot
+                }};
                 newState.spot[action.review.id] = action.review
                 return newState
         default:

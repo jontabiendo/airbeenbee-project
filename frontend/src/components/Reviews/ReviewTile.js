@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import OpenModalButton from '../OpenModalButton';
 
 const ReviewTile = ({ reviewData }) => {
+    console.log('enter review tile ', reviewData)
     const { User, createdAt, review } = reviewData;
 
     const created = new Date(createdAt)
