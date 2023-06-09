@@ -5,14 +5,7 @@ import ReviewTile from './ReviewTile'
 
 const SpotReviews = ({ spotId, spotReviews }) => {
     const dispatch = useDispatch();
-    // const reviewsData = useSelector((state) => state.reviews.spot)
-
-    // useEffect(() => {
-    //     dispatch(getSpotReviewsThunk(spotId))
-    // }, [dispatch])
-
-    // if(!Object.values(reviewsData).length) return null;
-    console.log('spot reviews pre-render ', spotReviews)
+    const reviews = useSelector((state) => state.reviews.spot)
 
     return (
         <div className="spot-reviews-div">

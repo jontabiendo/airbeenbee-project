@@ -42,7 +42,8 @@ const ProfileButton = ({ user }) => {
 
     return (
         <>
-            <button onClick={openMenu}>
+            <button id='profile-button' onClick={openMenu}>
+                <i class="fa-solid fa-bars"></i>
                 <i className="fa-solid fa-user" id="navElement"></i>
             </button>
             <ul className={ulClassName} ref={ulRef}>

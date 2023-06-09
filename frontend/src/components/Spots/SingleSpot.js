@@ -36,7 +36,7 @@ const SingleSpot = () => {
         <div id="single-spot-div">
             <h2>{spotData.name}</h2>
             <h4>{spotData.city}, {spotData.state}, {spotData.country}</h4>
-            {/* <div className="single-spot-images">
+            <div className="single-spot-images">
                 <img src={preview[0].url} alt="spot preview image"></img>
                 {images.length ? <div className='normal-img'>
                     <img src={images.shift().url} alt="spot image"></img>
@@ -44,7 +44,7 @@ const SingleSpot = () => {
                     <img src={images.shift().url} alt="spot image"></img>
                     <img src={images.shift().url} alt="spot image"></img>
                 </div> : null}
-            </div> */}
+            </div>
             <div className="spot-desc-actions">
                 <div className="spot-desc">
                     <h3>Hosted by {spotData.Owner.firstName} {spotData.Owner.lastName}</h3>

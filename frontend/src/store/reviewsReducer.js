@@ -3,7 +3,6 @@ import thunk from 'redux-thunk';
 
 const GET_REVIEWS = 'reviews/spot/GET'
 const POST_REVIEW = 'review/spot/GET';
-const PUT_REVIEW = '/review/spot/PUT';
 const DELETE_REVIEW = '/review/spot/DELETE';
 
 const getSpotReviewsAction = reviews => {
@@ -20,6 +19,13 @@ const createSpotReviewAction = review => {
     }
 };
 
+const deleteReviewAction = id => {
+    return {
+        type: DELETE_REVIEW,
+        id
+    }
+}
+
 export const getSpotReviewsThunk = (spotId) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
 
@@ -32,12 +38,10 @@ export const getSpotReviewsThunk = (spotId) => async dispatch => {
     });
     
     dispatch(getSpotReviewsAction(normalizedData));
-    console.log(data, '***', normalizedData)
     return data;
 };
 
 export const createSpotReviewThunk = (submission) => async dispatch => {
-    console.log(submission)
     const { id, review, stars } = submission;
 
     const res = await csrfFetch(`/api/spots/${id}/reviews`, {
@@ -50,11 +54,27 @@ export const createSpotReviewThunk = (submission) => async dispatch => {
             stars
         })
     });
-    console.log('res from fetch ', res)
+    
+    const data = await res.json();
+    
+    if (res.ok) {
+        const reviewFetch = await csrfFetch(`/api/reviews/${data.id}`)
+        
+        const revData = await reviewFetch.json();
+        dispatch(createSpotReviewAction(revData))
+    }
+    return data;
+};
+
+export const deleteReviewThunk = (id) => async dispatch => {
+    const res = await csrfFetch(`/api/reviews/${id}`, {
+        method: 'DELETE'
+    })
 
     const data = await res.json();
-    console.log(data)
-    if (res.ok) dispatch(createSpotReviewAction(data))
+
+    if (res.ok) dispatch(deleteReviewAction(id))
+
     return data;
 }
 
@@ -69,13 +89,21 @@ const reviewsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 spot: action.reviews
-            }
+            };
             case POST_REVIEW:
                 const newState = {...state,
                 spot: {...state.spot
                 }};
                 newState.spot[action.review.id] = action.review
-                return newState
+                return newState;
+            case DELETE_REVIEW:
+                const newState1 = {
+                    ...state,
+                    spot: {...state.spot}
+                };
+                delete newState1.spot[action.id]
+                return newState1;
+
         default:
             return state;
     }

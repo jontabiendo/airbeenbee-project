@@ -12,18 +12,24 @@ const Navigation = ({ isLoaded }) => {
 
     return (
         <div id="navigation">
-            <ul>
-                <li id='home'>
+            <ul id='nav-list'>
+                <li>
                     <NavLink to='/'>
-                        <h1>airbnb</h1>
+                        <div id='home'>
+                            <img id='home-icon' src={require('./airbnb-logo.png')} />
+                            <h1>airbnb</h1>
+                        </div>
                     </NavLink>
                 </li>
-                <li>
+                {/* <li>
                     <NavLink to='/spots/new'>
                         <p>Create a New Spot</p>
                     </NavLink>
-                </li>
-                <li>
+                </li> */}
+                <li id='right-nav'>
+                    <NavLink to='/spots/new'>
+                        <p id="create-spot-button">Create a New Spot</p>
+                    </NavLink>
                     {isLoaded && <ProfileButton user={sessionUser} />}
                 </li>
             </ul>
