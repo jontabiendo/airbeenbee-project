@@ -10,7 +10,7 @@ const ReviewFormModal = ({ id }) => {
     const [review, setReview] = useState('');
     const [currentStars, setCurrentStars] = useState(0)
     const [disabled, setDisabled] = useState(false)
-    const [errors, setErrors] = useState({})
+    const [errors, setErrors] = useState({});
 
     const handleSubmit = async () => {
         setErrors({});

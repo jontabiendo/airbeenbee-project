@@ -1,5 +1,6 @@
 import { csrfFetch } from './csrf';
 import thunk from 'redux-thunk';
+import { getSingleSpotThunk } from './spotsReducer'
 
 const GET_REVIEWS = 'reviews/spot/GET'
 const POST_REVIEW = 'review/spot/GET';
@@ -62,6 +63,7 @@ export const createSpotReviewThunk = (submission) => async dispatch => {
         
         const revData = await reviewFetch.json();
         dispatch(createSpotReviewAction(revData))
+        dispatch(getSingleSpotThunk(id))
     }
     return data;
 };
@@ -73,7 +75,10 @@ export const deleteReviewThunk = (id) => async dispatch => {
 
     const data = await res.json();
 
-    if (res.ok) dispatch(deleteReviewAction(id))
+    if (res.ok) {
+        dispatch(deleteReviewAction(id))
+        dispatch(getSingleSpotThunk(id))
+    }
 
     return data;
 }

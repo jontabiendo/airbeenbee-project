@@ -18,6 +18,8 @@ const LoginFormModal = () => {
         e.preventDefault();
 
         setErrors({});
+            
+
         dispatch(thunkSetUser({
             credential,
             password
@@ -33,6 +35,21 @@ const LoginFormModal = () => {
 
     };
 
+    const onSubmitDemo = (e) => {
+        e.preventDefault();
+
+        setErrors({});
+
+        dispatch(thunkSetUser({
+        credential: 'Demo-Lition',
+        password: 'password'
+        }))
+            .then(closeModal)
+            .then( async (res) => {
+                history.push('/')
+            })
+    }
+
     return (
         <div className="login-form">
             <h1>Log In</h1>
@@ -45,6 +62,7 @@ const LoginFormModal = () => {
                 </label>
                 {errors.credential && <p className="errors">{errors.credential}</p>}
                 <button id="login-button" type='submit' onClick={(e) => onSubmit(e)}>Login</button>
+                <button id='demo-login' type='submit' onClick={(e) => onSubmitDemo(e)}>Log in as Demo User</button>
             </form>
         </div>
     )

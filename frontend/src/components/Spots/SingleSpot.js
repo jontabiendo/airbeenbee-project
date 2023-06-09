@@ -24,6 +24,10 @@ const SingleSpot = () => {
         dispatch(getSpotReviewsThunk(spotId))
     }, [dispatch])
 
+    useEffect(() => {
+
+    }, [spotData])
+
     if (!Object.values(spotData).length) return null;
 
     const images = [...spotData.SpotImages]
