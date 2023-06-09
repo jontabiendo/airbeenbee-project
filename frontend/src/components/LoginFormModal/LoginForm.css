@@ -14,3 +14,11 @@ form {
     align-items: center;
     justify-content: center;
 }
+
+#demo-login {
+    display: flex;
+    padding: 3px 5px;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+}

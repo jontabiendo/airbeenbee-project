@@ -27,12 +27,34 @@ div#navigation {
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: gray 2px 2px 5px;
+    padding: 0;
+    width: 11rem;
 }
 
 .profile-dropdown > li {
     margin-top: 3px;
     margin-bottom: 3px;
+    padding-left: 1rem;
+}
+
+.profile-dropdown > a {
+    color: black;
+    border-top: 1px solid black;
     border-bottom: 1px solid black;
+    padding-bottom: 0.1225rem;
+    padding-top: 0.1225rem;
+    padding-left: 1rem;
+}
+
+#logout-button {
+    padding: 0;
+    text-align: center;
+}
+.profile-dropdown > li > button {
+    color: white;
+    background-color: gray;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
 }
 
 .hidden {
@@ -85,4 +107,8 @@ h1 {
 #create-spot-button {
     margin-right: 30px;
     color: #00A699;
+}
+
+.modal-button:hover {
+    cursor: pointer;
 }

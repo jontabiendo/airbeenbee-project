@@ -17,6 +17,8 @@ const SignupFormModal = () => {
     const [errors, setErrors] = useState({})
     const { closeModal } = useModal();
 
+    if(username.length && firstName.length && lastName.length && email.length && password.length && confirmPassword.length) console.log('true')
+
     const sessionUser = useSelector((state) => state.session.user);
 
     if (sessionUser) return <Redirect to='/' />;
@@ -51,31 +53,31 @@ const SignupFormModal = () => {
         <div className='signup-form'>
             <h1>Sign Up</h1>
             <form onSubmit={onSubmit}>
-                <label htmlFor='username'>Username:
-                    <input type='text' name='username' value={username} onChange={(e) => setUserName(e.target.value)} /> 
-                </label>
-                {errors.username && <p className='errors'>{errors.username}</p>}
-                <label htmlFor='firstName'>First Name:
+                <div className='signup-section'>
+                    <label htmlFor='firstName'>First Name:</label>
                     <input type='text' name='firstName' value={firstName} onChange={(e) => setFirstName(e.target.value)} /> 
-                </label>
-                {errors.firstName && <p className='errors'>{errors.firstName}</p>}
-                <label htmlFor='lastName'>Last Name:
+                    {errors.firstName && <p className='errors'>{errors.firstName}</p>}
+                    <label htmlFor='lastName'>Last Name:</label>
                     <input type='text' name='lastName' value={lastName} onChange={(e) => setLastName(e.target.value)} /> 
-                </label>
-                {errors.lastName && <p className='errors'>{errors.lastName}</p>}
-                <label htmlFor='email'>Email:
-                    <input type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} /> 
-                </label>
-                {errors.email && <p className='errors'>{errors.email}</p>}
-                <label htmlFor='password'>Password:
-                    <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} /> 
-                </label>
-                {errors.password && <p className='errors'>{errors.password}</p>}
-                <label htmlFor='confirmPassword'>Password:
-                    <input type='password' name='confirmPassword' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /> 
-                </label>
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-                <button>Sign Up</button>
+                    {errors.lastName && <p className='errors'>{errors.lastName}</p>}
+                </div>
+                <div className='signup-section'>
+                    <label htmlFor='email'>Email:</label>
+                        <input type='email' name='email' value={email} onChange={(e) => setEmail(e.target.value)} /> 
+                    {errors.email && <p className='errors'>{errors.email}</p>}
+                    <label htmlFor='username'>Username:</label>
+                        <input type='text' name='username' value={username} onChange={(e) => setUserName(e.target.value)} /> 
+                    {errors.username && <p className='errors'>{errors.username}</p>}
+                </div>
+                <div className='signup-section'>
+                    <label htmlFor='password'>Password:</label>
+                        <input type='password' name='password' value={password} onChange={(e) => setPassword(e.target.value)} /> 
+                    {errors.password && <p className='errors'>{errors.password}</p>}
+                    <label htmlFor='confirmPassword'>Confirm Password:</label>
+                        <input type='password' name='confirmPassword' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} /> 
+                    {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                </div>
+                <button disable={username.length && firstName.length && lastName.length && email.length && password.length && confirmPassword.length} id='signup-button'>Sign Up</button>
             </form>
         </div>
     )

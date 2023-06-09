@@ -5,11 +5,13 @@ import { thunkLogout } from "../../store/session";
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { useHistory } from 'react-router-dom';
 
 const ProfileButton = ({ user }) => {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+    const history = useHistory()
 
     useEffect(() => {
         if (!showMenu) return;
@@ -36,6 +38,7 @@ const ProfileButton = ({ user }) => {
         e.preventDefault();
         dispatch(thunkLogout());
         closeMenu();
+        history.push('/')
     };
 
     const ulClassName = 'profile-dropdown' + (showMenu ? "" : " hidden");
@@ -49,17 +52,16 @@ const ProfileButton = ({ user }) => {
             <ul className={ulClassName} ref={ulRef}>
                 {user ? (
                     <>
-                        <li>{user.username}</li>
-                        <li>{user.firstName} {user.lastName}</li>
+                        <li>Hello, {user.firstName}</li>
                         <li>{user.email}</li>
-                        <Link to='/spots/current'>Manage Spots</Link>
-                        <li>
+                        <Link id='manage-spots-link' to='/spots/current'>Manage Spots</Link>
+                        <li id='logout-button'>
                             <button onClick={logout}>Log Out</button>
                         </li>
                     </>
                 ) : (
                     <>
-                        <OpenModalMenuItem
+                        <OpenModalMenuItem 
                             itemText="Log In" onItemClick={closeMenu}
                             modalComponent={<LoginFormModal />} />
                         <OpenModalMenuItem itemText="Sign Up" onItemClick={closeMenu} modalComponent={<SignupFormModal />} />
