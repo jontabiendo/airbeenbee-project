@@ -22,8 +22,8 @@ div#navigation {
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 74px;
-    right: 30px;
+    top: 4.75rem;
+    right: 7rem;
     background-color: white;
     border: 1px solid black;
     border-radius: 5px;
@@ -51,6 +51,7 @@ div#navigation {
     padding: 0;
     text-align: center;
 }
+
 .profile-dropdown > li > button {
     color: white;
     background-color: gray;
