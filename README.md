@@ -63,4 +63,7 @@ Launching the full application locally:
 
 Images: 
 
-    
+![airbnb-landing-no-user](https://github.com/jontabiendo/API-project-fixed/assets/120198327/75cb5592-9029-4087-b1f0-512c05e89959)
+![login-modal-active](https://github.com/jontabiendo/API-project-fixed/assets/120198327/22eb6406-d140-4b85-9b1b-43fb07e5a4bd)
+![signup-modal-active](https://github.com/jontabiendo/API-project-fixed/assets/120198327/40840c7a-214c-4b6e-b24c-b162ccc1a6fe)
+
