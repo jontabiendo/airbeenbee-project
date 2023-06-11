@@ -142,7 +142,6 @@ router.put('/:bookingId', [requireAuth, validateBooking], async (req, res, next)
     bookings.forEach(booking => {
         bookingList.push(booking.toJSON())
     });
-    console.log(bookingList)
 
     if(bookingList.length) {
         bookingList.forEach(booking => {

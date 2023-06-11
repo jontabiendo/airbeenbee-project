@@ -32,7 +32,6 @@ export const getAllSpotsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/spots');
 
     const data = await res.json();
-    console.log('getting all spots', data)
 
     const normalizedData = {}
     Object.values(data.Spots).forEach(spot => {
@@ -93,7 +92,6 @@ export const createSpotThunk = (spot) => async dispatch => {
 
 export const editSpotThunk = (spot) => async dispatch => {
     const { country, address, city, state, description, title, price, images, id } = spot;
-    console.log(spot)
     
     const res = await csrfFetch(`/api/spots/${id}`, {
         method: 'PUT',
@@ -121,8 +119,6 @@ export const getUserSpotsThunk = () => async dispatch => {
     const res = await csrfFetch(`/api/spots/current`);
 
     const data = await res.json();
-    console.log(typeof data)
-    console.log('getUserSpotsThunk ', data)
     const normalizedData = {}
     Object.values(data.Spots).forEach(spot => {
         normalizedData[spot.id] = spot

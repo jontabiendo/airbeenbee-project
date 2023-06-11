@@ -176,7 +176,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 preview: true
             }
         })
-        console.log(1, preview)
         if(!preview) return 'No preview image found'
         return preview.url
     }

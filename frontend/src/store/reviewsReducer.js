@@ -57,16 +57,11 @@ export const createSpotReviewThunk = (submission) => async dispatch => {
     });
     
     const data = await res.json();
-    console.log('post create fetch', data)
     
     if (res.ok) {
-        console.log('response was ok!')
         const reviewFetch = await csrfFetch(`/api/reviews/${data.id}`)
-
-        console.log('post review fetch', reviewFetch)
         
         const revData = await reviewFetch.json();
-        console.log('reviewFetch ', revData)
         dispatch(createSpotReviewAction(revData))
         dispatch(getSingleSpotThunk(id))
     }
