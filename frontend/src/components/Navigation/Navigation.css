@@ -28,8 +28,8 @@ div#navigation {
     border: 1px solid black;
     border-radius: 5px;
     box-shadow: gray 2px 2px 5px;
-    padding: 0;
-    width: 11rem;
+    padding-left: 0;
+    min-width: 11rem;
 }
 
 .profile-dropdown > li {
