@@ -9,7 +9,7 @@ export async function csrfFetch(url, options = {}) {
         options.headers['XSRF-Token'] = Cookies.get("XSRF-TOKEN");
     }
 
-    console.log(options)
+    // console.log(options)
 
     const res = await window.fetch(url, options);
 

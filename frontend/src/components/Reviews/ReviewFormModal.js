@@ -40,8 +40,6 @@ const ReviewFormModal = ({ id }) => {
 
     let disableButtonClass =  'review-submit-button' + (review.length < 10 ? "-disabled" : "-enabled")
 
-    console.log(errors)
-
     return (
         <div className='review-form-div'>
             <h3>How was your stay?</h3>

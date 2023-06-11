@@ -336,7 +336,6 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
             },
             attributes: ['spotId', 'startDate', 'endDate']
         });
-        console.log(bookings)
 
         if(!bookings) {
             return res.json({
@@ -382,8 +381,6 @@ router.post('/:spotId/bookings', [requireAuth], async (req, res, next) => {
 
     startDate = new Date(startDate);
     endDate = new Date(endDate)
-
-    console.log(startDate, endDate)
     
     if(endDate.valueOf() <= startDate.valueOf()) {
         res.statusCode = 400;
