@@ -5,6 +5,7 @@ div#navigation {
     position: sticky;
     top: 0px;
     background-color: white;
+    z-index: 1000;
 }
 
 #navigation > ul {

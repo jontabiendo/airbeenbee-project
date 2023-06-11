@@ -19,7 +19,6 @@ const LoginFormModal = () => {
 
         setErrors({});
             
-
         dispatch(thunkSetUser({
             credential,
             password

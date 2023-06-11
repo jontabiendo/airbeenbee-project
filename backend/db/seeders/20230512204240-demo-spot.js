@@ -56,6 +56,18 @@ module.exports = {
           description: 'Large house close to nature walks and easy access to public transportation to the city center',
           price: 300.00,
           ownerId: 3
+        },
+        {
+          address: '123 Jefferson St',
+          city: 'Miami',
+          state: 'Florida',
+          country: 'USA',
+          lat: 100.123456,
+          lng: -56.78945613,
+          name: 'Ralph Lauren House',
+          description: 'Large mansion located in the heart of Miami. Enjoy the best Miami has to offer and more!',
+          price: 1000.00,
+          ownerId: 1
         }
       ])
   },

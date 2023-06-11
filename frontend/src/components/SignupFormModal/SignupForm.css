@@ -33,9 +33,18 @@
     border: 2px solid black;
 }
 
-#signup-button {
+.signup-button {
     color: white;
     background-color: #FF5A5F;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: black 2px 2px;
+}
+
+.disabled {
+    color: #767676;
+    background-color: #ECECEC;
     margin-top: 0.5rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;

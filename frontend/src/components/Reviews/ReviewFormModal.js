@@ -36,12 +36,14 @@ const ReviewFormModal = ({ id }) => {
     const starFill = (num) => {
         if (currentStars >= num) return "filled"
         else return "empty"
-      }
-      console.log(errors)
+    }
+
+    
 
     return (
-        <>
+        <div className='review-form-div'>
             <h3>How was your stay?</h3>
+            {errors && <p className='errors'>{errors.message}</p>}
             <textarea value={review} onChange={(e) => setReview(e.target.value)} placeholder='Leave your review here...' />
             <div className="rating-input">
         <div className={starFill(1)} onMouseEnter={!disabled ? (e) =>  setCurrentStars(1) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(1)}>
@@ -58,11 +60,11 @@ const ReviewFormModal = ({ id }) => {
         </div>
         <div className={starFill(5)} onMouseEnter={!disabled ? (e) => setCurrentStars(5) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(5)} >
         <i className="fa-solid fa-star"></i>
+        <span>Stars</span>
         </div>
       </div>
-            {errors && <p className='errors'>{errors.message}</p>}
-            <button onClick={handleSubmit} disabled={review.length < 10}>Submit Your Review</button>
-        </>
+            <button id='review-submit-button' onClick={handleSubmit} disabled={review.length < 10}>Submit Your Review</button>
+        </div>
     )
 }
 

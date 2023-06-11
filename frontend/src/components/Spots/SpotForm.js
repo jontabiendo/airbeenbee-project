@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { createSpotThunk, getSingleSpotThunk } from '../../store/spotsReducer';
 import { useHistory } from 'react-router-dom';
+import './SpotForm.css';
 
 const SpotForm = () => {
     const dispatch = useDispatch();
@@ -44,24 +45,24 @@ const SpotForm = () => {
             ]
         }))
             .then( async res => {
-                if (res && res.errors) setErrors(res.errors)
-                else history.push(`/spots/${res.id}`)
+                if (!res.errors) history.push(`/spots/${res.id}`)
+                if (res && res.errrors) setErrors(res.errors)
             })
-    }
+    };
     return (
         <div className="create-spot-component">
              <h2>Create a new Spot</h2>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id='spot-form'>
                 <div className='create-spot-address'>
-                    <label htmlFor='country'>Country </label>{errors.countr && <span className='errors'>{errors.country}</span>}
+                    <label htmlFor='country'>Country </label>{errors.country && <span className='errors'>{errors.country}</span>}
                     <input type='text' name='country' placeholder='Country' value={country} onChange={(e) => setCountry(e.target.value)} required={true}></input>
                     <label htmlFor='address'>Street Address </label>{errors.address && <span className='errors'>{errors.address}</span>}
                     <input type='text' name='address' placeholder='Address'value={address} onChange={(e) => setAddress(e.target.value)} required={true}></input>
                     <label htmlFor='city'>City</label>
                     <input type='text' name='city' placeholder='City' value={city} onChange={(e) => setCity(e.target.value)} required={true}></input>
-                    <label htmlFor='state'>State</label>
+                    <label htmlFor='state'>State</label> {errors.state && <span>errors.state</span>}
                     <input type='text' name='state' placeholder='STATE' value={state} onChange={(e) => setState(e.target.value)} required={true}></input>
                 </div>
                 <div className='create-spot-desc'>
@@ -71,8 +72,9 @@ const SpotForm = () => {
                 </div>
                 <div className='create-spot-title'>
                     <h3>Create a title for your spot</h3>
-                    <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
+                    <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>{errors.name && <span className='errors'>{errors.name}</span>}
                     <input type='text' placeholder='Name of your spot' value={title} onChange={(e) => setTitle(e.target.value)} required={true}></input>
+                    
                 </div>
                 <div className='create-spot-price'>
                     <h3>Set a base price for your spot</h3>
@@ -83,10 +85,10 @@ const SpotForm = () => {
                     <h3>Liven up your spot with photos</h3>
                     <p>Submit a link to at least one photo to publish your spot.</p>
                     <input type='url' placeholder='PreviewImage URL' value={previewImg.url} onChange={(e) => setPreviewImg({preview: true, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img1.url} onChange={(e) => setImg1({preview: false, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img2.url} onChange={(e) => setImg2({preview: false, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img3.url} onChange={(e) => setImg3({preview: false, url: e.target.value})} required={true}></input>
-                    <input type='url' placeholder='Image URL' value={img4.url} onChange={(e) => setImg4({preview: false, url: e.target.value})} required={true}></input>
+                    <input type='url' placeholder='Image URL' value={img1.url} onChange={(e) => setImg1({preview: false, url: e.target.value})} ></input>
+                    <input type='url' placeholder='Image URL' value={img2.url} onChange={(e) => setImg2({preview: false, url: e.target.value})} ></input>
+                    <input type='url' placeholder='Image URL' value={img3.url} onChange={(e) => setImg3({preview: false, url: e.target.value})} ></input>
+                    <input type='url' placeholder='Image URL' value={img4.url} onChange={(e) => setImg4({preview: false, url: e.target.value})} ></input>
                 </div>
                 <button type='submit'>Create Spot</button>
             </form>

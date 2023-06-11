@@ -23,23 +23,23 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       reviewId: 1,
-      url: 'https://www.google.com/',
+      url: '	https://www.dexerto.com/cdn-cgi/image/width=3840,q…/26/naruto-itachi-uchiha-mangekyou-sharingan.jpeg',
     },
     {
       reviewId: 1,
-      url: 'https://www.google.com/',
+      url: '	https://www.dexerto.com/cdn-cgi/image/width=3840,q…/26/naruto-itachi-uchiha-mangekyou-sharingan.jpeg',
     },
     {
       reviewId: 2,
-      url: 'https://www.google.com/',
+      url: '	https://www.dexerto.com/cdn-cgi/image/width=3840,q…/26/naruto-itachi-uchiha-mangekyou-sharingan.jpeg',
     },
     {
       reviewId: 3,
-      url: 'https://www.google.com/',
+      url: '	https://www.dexerto.com/cdn-cgi/image/width=3840,q…/26/naruto-itachi-uchiha-mangekyou-sharingan.jpeg',
     },
     {
       reviewId: 5,
-      url: 'https://www.google.com/',
+      url: '	https://www.dexerto.com/cdn-cgi/image/width=3840,q…/26/naruto-itachi-uchiha-mangekyou-sharingan.jpeg',
     }
    ])
   },

@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { getSingleSpotThunk } from '../../store/spotsReducer';
 import { useParams } from 'react-router-dom';
 import SpotReviews from '../Reviews/SpotReviews';
-import OpenModalButton from '../OpenModalButton';
-import ReviewFormModal from '../Reviews/ReviewFormModal';
 import { getSpotReviewsThunk } from '../../store/reviewsReducer';
 
 import './singleSpot.css'
@@ -12,12 +10,8 @@ import './singleSpot.css'
 const SingleSpot = () => {
     const dispatch = useDispatch();
     const spotData = useSelector((state) => state.spots.singleSpot);
-    const spotReviews = useSelector((state) => state.reviews.spot)
-    const sessionUser = useSelector((state) => state.session.user)
     const { spotId } = useParams();
-    const [showMenu, setShowMenu] = useState(false);
 
-    const closeMenu = () => setShowMenu(false);
 
     useEffect(() => {
         dispatch(getSingleSpotThunk(spotId));
@@ -41,13 +35,23 @@ const SingleSpot = () => {
             <h2>{spotData.name}</h2>
             <h4>{spotData.city}, {spotData.state}, {spotData.country}</h4>
             <div className="single-spot-images">
-                <img src={preview[0].url} alt="spot preview image"></img>
-                {images.length ? <div className='normal-img'>
-                    <img src={images.shift().url} alt="spot image"></img>
-                    <img src={images.shift().url} alt="spot image"></img>
-                    <img src={images.shift().url} alt="spot image"></img>
-                    <img src={images.shift().url} alt="spot image"></img>
-                </div> : null}
+                <div id='preview-img'>
+                    <img src={preview[0].url} alt="spot preview image"></img>
+                </div>
+                <div className='normal-img'>
+                    <div className='small-spot-images'>
+                        <img src={images.shift().url} alt="spot image"></img>
+                    </div>
+                    <div className='small-spot-images'>
+                        <img src={images.shift().url} alt="spot image"></img>
+                    </div>
+                    <div className='small-spot-images'>
+                        <img src={images.shift().url} alt="spot image"></img>
+                    </div>
+                    <div className='small-spot-images'>
+                        <img src={images.shift().url} alt="spot image"></img>
+                    </div>
+                </div>
             </div>
             <div className="spot-desc-actions">
                 <div className="spot-desc">
@@ -57,22 +61,18 @@ const SingleSpot = () => {
                 <div className="spot-action">
                     <div id="action-info">
                         <p>${spotData.price} night</p>
-                        <p><i className="fa-solid fa-star"></i> </p>
-                        {spotData.numReviews > 0 && <p>{spotData.avgStarRating} - {spotData.numReviews} reviews</p>}
-                        {spotData.numReviews === 0 && <p> New</p>}
+                        <div id='review-reserve'>
+                            <p><i className="fa-solid fa-star"></i> </p>
+                            {spotData.numReviews > 0 && <p>{Math.round(spotData.avgStarRating * 100) / 100} · {spotData.numReviews} reviews</p>}
+                            {spotData.numReviews === 0 && <p> New</p>}
+                        </div>
                     </div>
                     <button onClick={() => alert('Feature Coming Soon...')}id="reserve-button">Reserve</button>
                 </div>
             </div>
         </div>
-        <div>
-            <h3><i className="fa-solid fa-star"></i> {spotData.numReviews > 0 && <p>{spotData.avgStarRating} - {spotData.numReviews} reviews</p>}
-                        {spotData.numReviews === 0 && <p> New</p>}</h3>
-            {sessionUser && <div>
-                <OpenModalButton buttonText="Post Your Review" onButtonClick={closeMenu}  modalComponent={<ReviewFormModal id={spotId} />} />
-                </div>}
-        </div>
-        <SpotReviews spotId={spotData.id} spotReviews={spotReviews} />
+        
+        <SpotReviews spotId={spotData.id}  />
         </>
     )
 }

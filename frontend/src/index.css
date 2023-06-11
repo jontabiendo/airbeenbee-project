@@ -11,7 +11,8 @@ body {
 }
 
 .errors {
-    color: red
+    color: red;
+    margin: 0.25rem 0;
 }
 
 ul {
@@ -20,4 +21,9 @@ ul {
 
 a:hover {
     cursor: pointer;
+}
+
+img {
+    margin-left: 50%;
+    transform: translateX(-50%);
 }

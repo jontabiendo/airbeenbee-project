@@ -23,32 +23,102 @@ module.exports = {
    await queryInterface.bulkInsert(options, [
     {
       spotId: 1,
-      url: 'https://www.google.com/',
+      url: 'https://media.nomadicmatt.com/2023/madriditinerary.jpeg',
       preview: true
     },
     {
       spotId: 1,
-      url: 'https://www.google.com/',
+      url: 'https://media.nomadicmatt.com/2023/madriditinerary.jpeg',
+      preview: false
+    },
+    {
+      spotId: 1,
+      url: 'https://media.nomadicmatt.com/2023/madriditinerary.jpeg',
+      preview: true
+    },
+    {
+      spotId: 1,
+      url: 'https://media.nomadicmatt.com/2023/madriditinerary.jpeg',
+      preview: false
+    },
+    {
+      spotId: 1,
+      url: 'https://media.nomadicmatt.com/2023/madriditinerary.jpeg',
       preview: true
     },
     {
       spotId: 2,
-      url: 'https://www.google.com',
+      url: 'https://cdn.shortpixel.ai/spai/q_lossy+w_450+to_we…/wp-content/uploads/things-to-do-in-cleveland.jpg',
+      preview: true
+    },
+    {
+      spotId: 2,
+      url: 'https://cdn.shortpixel.ai/spai/q_lossy+w_450+to_we…/wp-content/uploads/things-to-do-in-cleveland.jpg',
+      preview: false
+    },
+    {
+      spotId: 2,
+      url: 'https://cdn.shortpixel.ai/spai/q_lossy+w_450+to_we…/wp-content/uploads/things-to-do-in-cleveland.jpg',
+      preview: false
+    },
+    {
+      spotId: 2,
+      url: 'https://cdn.shortpixel.ai/spai/q_lossy+w_450+to_we…/wp-content/uploads/things-to-do-in-cleveland.jpg',
+      preview: false
+    },
+    {
+      spotId: 2,
+      url: 'https://cdn.shortpixel.ai/spai/q_lossy+w_450+to_we…/wp-content/uploads/things-to-do-in-cleveland.jpg',
       preview: false
     },
     {
       spotId: 3,
-      url: 'https://www.google.com',
+      url: 'https://i.natgeofe.com/n/9af61596-c407-4dd4-a563-66574f8b19f3/weekender2b147a6hr_square.jpg',
       preview: true
     },
     {
       spotId: 3,
-      url: 'https://www.google.com',
+      url: 'https://i.natgeofe.com/n/9af61596-c407-4dd4-a563-66574f8b19f3/weekender2b147a6hr_square.jpg',
       preview: false
     },
     {
       spotId: 3,
-      url: 'https://www.google.com',
+      url: 'https://i.natgeofe.com/n/9af61596-c407-4dd4-a563-66574f8b19f3/weekender2b147a6hr_square.jpg',
+      preview: false
+    },
+    {
+      spotId: 3,
+      url: 'https://i.natgeofe.com/n/9af61596-c407-4dd4-a563-66574f8b19f3/weekender2b147a6hr_square.jpg',
+      preview: false
+    },
+    {
+      spotId: 3,
+      url: 'https://i.natgeofe.com/n/9af61596-c407-4dd4-a563-66574f8b19f3/weekender2b147a6hr_square.jpg',
+      preview: false
+    },
+    {
+      spotId: 4,
+      url: 'https://blog-www.pods.com/wp-content/uploads/2019/08/MG_6_1_Miami.jpg',
+      preview: true
+    },
+    {
+      spotId: 4,
+      url: 'https://blog-www.pods.com/wp-content/uploads/2019/08/MG_6_1_Miami.jpg',
+      preview: false
+    },
+    {
+      spotId: 4,
+      url: 'https://blog-www.pods.com/wp-content/uploads/2019/08/MG_6_1_Miami.jpg',
+      preview: false
+    },
+    {
+      spotId: 4,
+      url: 'https://blog-www.pods.com/wp-content/uploads/2019/08/MG_6_1_Miami.jpg',
+      preview: false
+    },
+    {
+      spotId: 4,
+      url: 'https://blog-www.pods.com/wp-content/uploads/2019/08/MG_6_1_Miami.jpg',
       preview: false
     }
    ])

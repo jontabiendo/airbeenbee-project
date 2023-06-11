@@ -1,0 +1,102 @@
+.create-spot-component {
+    display: flex;
+    flex-direction: column;
+    width: 35rem;
+}
+
+form > div {
+    border-bottom: 1px solid black;
+}
+
+.create-spot-component > h3 {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.create-spot-component > h2 {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.create-spot-address {
+    border-bottom: 1px solid black;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.create-spot-address > input {
+    margin-bottom: 0.5rem; 
+}
+
+.create-spot-desc {
+    height: 15rem;
+}
+
+.create-spot-desc > p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.create-spot-desc > h3 {
+    margin-bottom: 0.1225rem;
+}
+
+.create-spot-desc > textarea {
+    width: 99%;
+    height: 7rem;
+}
+
+.create-spot-title {
+    height: 7rem;
+}
+
+.create-spot-title > p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.create-spot-title > h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.1225rem;
+}
+
+.create-spot-title > input {
+    width: 99%;
+}
+
+.create-spot-price {
+    height: 7rem;
+}
+
+.create-spot-price > h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.1225rem;
+}
+
+.create-spot-price > p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.create-spot-price > input {
+    width: 96.3%;
+}
+
+.create-spot-photos {
+    height: 15rem;
+}
+
+.create-spot-photos > h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.1225rem;
+}
+
+.create-spot-photos > p {
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+.create-spot-photos > input {
+    width: 99%;
+}

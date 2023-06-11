@@ -19,12 +19,12 @@ const ReviewTile = ({ reviewData }) => {
     const closeMenu = () => setShowMenu(false);
 
     return (
-        <>
+        <div className='review-tile'>
             <h4>{User.firstName}</h4>
             <h5>{month} {created.getFullYear()}</h5>
             <p>{review}</p>
             {sessionUser && sessionUser.id === User.id && <OpenModalButton buttonText="Delete" onButtonClick={closeMenu} modalComponent={<DeleteReviewModal spotId={reviewData.spotId} id={id} />} />}
-        </>
+        </div>
     )
 }
 
