@@ -17,7 +17,7 @@ const Navigation = ({ isLoaded }) => {
                     <NavLink to='/'>
                         <div id='home'>
                             <img id='home-icon' src={require('./airbnb-logo.png')} />
-                            <h1>airbnb</h1>
+                            <h1>airbee'n'bee</h1>
                         </div>
                     </NavLink>
                 </li>
