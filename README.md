@@ -45,8 +45,8 @@ This project uses the following technologies to achieve the following functional
       React - for rendering components onto the client page based on the url path and Express responses
       Redux - for storing the state of the app in the front end
       CSS   - for applying styles and layout to the functional components
-      Javascript - for building dynamic functional components
-      HTML  - for importing meta-data      
+      FontAwesome - for icons
+      Google Fonts - for fonts
       
 ------------------------------------------------------------------------------------------------------------------
 
