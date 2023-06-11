@@ -73,21 +73,21 @@ router.post('/:reviewId/images', [requireAuth, validateImage], async (req, res, 
     res.json(pojo);
 });
 
-// router.get('/:reviewId', async (req, res, next) => {
-//     const review = await Review.findByPk(req.params.reviewId, {
-//         include: [
-//             {
-//                 model: User,
-//                 attributes: ['id', 'firstName', 'lastName'] 
-//             },
-//             {
-//                 model: ReviewImage
-//             }
-//         ]
-//     });
+router.get('/:reviewId', async (req, res, next) => {
+    const review = await Review.findByPk(req.params.reviewId, {
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName'] 
+            },
+            {
+                model: ReviewImage
+            }
+        ]
+    });
 
-//     res.json(review)
-// })
+    res.json(review)
+})
 
 router.put('/:reviewId', [requireAuth, validateReview], async (req, res, next) => {
     const { review, stars } = req.body;

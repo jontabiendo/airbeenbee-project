@@ -38,7 +38,9 @@ const ReviewFormModal = ({ id }) => {
         else return "empty"
     }
 
-    
+    let disableButtonClass =  'review-submit-button' + (review.length < 10 ? " disabled" : " enabled")
+
+    console.log(errors)
 
     return (
         <div className='review-form-div'>
@@ -63,7 +65,8 @@ const ReviewFormModal = ({ id }) => {
         <span>Stars</span>
         </div>
       </div>
-            <button id='review-submit-button' onClick={handleSubmit} disabled={review.length < 10}>Submit Your Review</button>
+            <button className={disableButtonClass} onClick={handleSubmit} disabled={review.length < 10}>Submit Your Review</button>
+            {errors.length && <p className='errors'>{errors}</p>}
         </div>
     )
 }

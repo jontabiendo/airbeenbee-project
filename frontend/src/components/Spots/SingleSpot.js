@@ -40,16 +40,16 @@ const SingleSpot = () => {
                 </div>
                 <div className='normal-img'>
                     <div className='small-spot-images'>
-                        <img src={images.shift().url} alt="spot image"></img>
+                        <img src={images[0] ? images.shift().url : null} alt="spot image"></img>
                     </div>
                     <div className='small-spot-images'>
-                        <img src={images.shift().url} alt="spot image"></img>
+                        <img src={images[0] ? images.shift().url : null} alt="spot image"></img>
                     </div>
                     <div className='small-spot-images'>
-                        <img src={images.shift().url} alt="spot image"></img>
+                        <img src={images[0] ? images.shift().url : null} alt="spot image"></img>
                     </div>
                     <div className='small-spot-images'>
-                        <img src={images.shift().url} alt="spot image"></img>
+                        <img src={images[0] ? images.shift().url : null} alt="spot image"></img>
                     </div>
                 </div>
             </div>

@@ -1,14 +1,16 @@
 div.spot-tile {
-    width: 20rem;
+    width: 25rem;
     height: 26rem;
     margin: 10px;
-    border: 1px solid black;
     overflow: hidden;
 }
 
-#spot-list {
-    display: flex;
-    flex-wrap: wrap;
+
+div.manage {
+    width: 25rem;
+    height: 28rem;
+    margin: 10px;
+    overflow: hidden;
 }
 
 .spot-tile > a > img {
@@ -18,16 +20,34 @@ div.spot-tile {
     transform: translateX(-50%);
 }
 
-/* .spot-tile > a {
-    
-} */
-
 a {
-    text-decoration: none
+    text-decoration: none;
+    color: black;
 }
 
 .tile-upper {
     display: flex;
     justify-content: space-between;
     margin: 0rem 0.1225rem;
+}
+
+.manage-buttons-div {
+    display: flex;
+    flex-direction: row;
+}
+
+#manage-update-button {
+    color: white;
+    background-color: #767676;
+    border: 1px solid black;
+    box-shadow: black 1px 1px;
+    padding: 0.1225rem 0.5rem;
+    margin-right: 1rem;
+}
+
+.manage-buttons-div > button {
+    color: white;
+    background-color: #767676;
+    box-shadow: black 1px 1px;
+    padding: 0.1225rem 0.5rem;
 }

@@ -57,18 +57,23 @@ export const createSpotReviewThunk = (submission) => async dispatch => {
     });
     
     const data = await res.json();
+    console.log('post create fetch', data)
     
     if (res.ok) {
+        console.log('response was ok!')
         const reviewFetch = await csrfFetch(`/api/reviews/${data.id}`)
+
+        console.log('post review fetch', reviewFetch)
         
         const revData = await reviewFetch.json();
+        console.log('reviewFetch ', revData)
         dispatch(createSpotReviewAction(revData))
         dispatch(getSingleSpotThunk(id))
     }
     return data;
 };
 
-export const deleteReviewThunk = (id) => async dispatch => {
+export const deleteReviewThunk = (id, spotId) => async dispatch => {
     const res = await csrfFetch(`/api/reviews/${id}`, {
         method: 'DELETE'
     })
@@ -77,7 +82,7 @@ export const deleteReviewThunk = (id) => async dispatch => {
 
     if (res.ok) {
         dispatch(deleteReviewAction(id))
-        dispatch(getSingleSpotThunk(id))
+        dispatch(getSingleSpotThunk(spotId))
     }
 
     return data;

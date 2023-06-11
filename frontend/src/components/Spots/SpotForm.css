@@ -100,3 +100,13 @@ form > div {
 .create-spot-photos > input {
     width: 99%;
 }
+
+#spot-form > button {
+    color: white;
+    background-color: #FF5A5F;
+    box-shadow: 2px 2px black;
+    padding: 0.12255rem 1rem;
+    align-self: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

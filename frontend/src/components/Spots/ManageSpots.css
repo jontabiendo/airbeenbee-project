@@ -1,0 +1,14 @@
+.manage-spots-div {
+    max-width: 90%;
+}
+
+.manage-spots-header {
+    margin-left: 1rem;
+}
+
+.manage-spots-header > button {
+    color: white;
+    background-color: #767676;
+    box-shadow: black 1px 1px;
+    padding: 0.1225rem 0.5rem;
+}

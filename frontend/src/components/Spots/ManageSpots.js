@@ -4,6 +4,7 @@ import SpotTile from './SpotTile';
 import { getUserSpotsThunk } from '../../store/spotsReducer';
 import { useHistory } from 'react-router-dom';
 
+import './ManageSpots.css'
 import './SpotTile.css'
 
 const ManageSpots = () => {
@@ -17,13 +18,11 @@ const ManageSpots = () => {
 
     if(!userSpots) return null;
 
-    console.log(userSpots)
-
     return (
         <div className='manage-spots-div'>
             <div className='manage-spots-header'>
-                <h1>Manage Your Spots</h1>
-                <button>Create a New Spot</button>
+                <h2>Manage Spots</h2>
+                <button onClick={() => history.push('/spots/new')}>Create a New Spot</button>
             </div>
             <ul id="spot-list">
                 {Object.values(userSpots).map(spot => 

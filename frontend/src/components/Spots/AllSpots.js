@@ -15,7 +15,7 @@ const AllSpots = () => {
     if (!spots) return null;
 
     return (
-        <>
+        <div className='home-spot-list'>
             <ul id="spot-list">
                 {Object.values(spots).map(spot => (
                     <li key={spot.id}>
@@ -24,7 +24,7 @@ const AllSpots = () => {
                     )
                 )}
             </ul>
-        </>
+        </div>
     )
 }
 

@@ -7,15 +7,17 @@ import DeleteSpotModal from './DeleteSpotModal';
 import './SpotTile.css';
 
 const SpotTile = ({ spotData, manage }) => {
-    const { id, previewImage, city, state, price, avgRating } = spotData;
+    const { id, previewImage, city, state, price, avgRating, name } = spotData;
     const dispatch = useDispatch()
     const [showMenu, setShowMenu] = useState(false);
 
     const closeMenu = () => setShowMenu(false);
 
+    let spotTileClassName = 'spot-tile' + (manage ? " manage" : "")
+
     return (
-        <div className='spot-tile' key={id}>
-            <Link to={`/spots/${id}`}>
+        <div className={spotTileClassName} key={id}>
+            <Link tooltip={name} to={`/spots/${id}`}>
                 <img src={previewImage}></img>
                 <div id='tile-text'>
                     <div className='tile-upper'>
@@ -25,14 +27,14 @@ const SpotTile = ({ spotData, manage }) => {
                     <p>${price} night</p>
                     </div>
             </Link>
-            {manage ? (
-                <>
-                    <Link to={`/spots/${id}/edit`}>
-                        Update
-                    </Link>
-                    <OpenModalButton buttonText="Delete" onButtonClick={closeMenu} modalComponent={<DeleteSpotModal id={id} />} />
-                </>
-            ) : null }
+                    {manage ? (
+                        <div className='manage-buttons-div'>
+                            <Link id='manage-update-button' to={`/spots/${id}/edit`}>
+                                Update
+                            </Link>
+                            <OpenModalButton buttonText="Delete" onButtonClick={closeMenu} modalComponent={<DeleteSpotModal id={id} />} />
+                        </div>
+                    ) : null }
         </div>
     )
 }

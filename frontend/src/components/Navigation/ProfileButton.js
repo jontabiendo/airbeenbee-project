@@ -54,7 +54,7 @@ const ProfileButton = ({ user }) => {
                     <>
                         <li>Hello, {user.firstName}</li>
                         <li>{user.email}</li>
-                        <Link id='manage-spots-link' to='/spots/current'>Manage Spots</Link>
+                        <Link onClick={closeMenu} id='manage-spots-link' to='/spots/current'>Manage Spots</Link>
                         <li id='logout-button'>
                             <button onClick={logout}>Log Out</button>
                         </li>

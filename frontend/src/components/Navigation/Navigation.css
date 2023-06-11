@@ -82,6 +82,8 @@ h1 {
 #home-icon {
     width: 32px;
     height: 32px;
+    margin: 0;
+    transform: 0;
 }
 
 #profile-button {
@@ -112,4 +114,9 @@ h1 {
 
 .modal-button:hover {
     cursor: pointer;
+}
+
+#nav-list > li {
+    margin-left: 5rem;
+    margin-right: 5rem;
 }

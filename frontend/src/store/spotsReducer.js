@@ -32,7 +32,7 @@ export const getAllSpotsThunk = () => async dispatch => {
     const res = await csrfFetch('/api/spots');
 
     const data = await res.json();
-    console.log('getting all spots', typeof data)
+    console.log('getting all spots', data)
 
     const normalizedData = {}
     Object.values(data.Spots).forEach(spot => {

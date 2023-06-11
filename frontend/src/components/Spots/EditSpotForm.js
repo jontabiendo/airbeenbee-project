@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { editSpotThunk, getSingleSpotThunk } from '../../store/spotsReducer';
 import { useHistory, useParams } from 'react-router-dom';
 
+import './SpotForm.css'
+
 const EditSpotForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -62,7 +64,7 @@ const EditSpotForm = () => {
             <h2>Update your Spot</h2>
             <h3>Where's your place located?</h3>
             <p>Guests will only get your exact address once they booked a reservation.</p>
-            <form onSubmit={handleSubmit}>
+            <form id='spot-form' onSubmit={handleSubmit}>
                 <div className='create-spot-address'>
                     <label htmlFor='country'>Country </label>{errors.countr && <span className='errors'>{errors.country}</span>}
                     <input type='text' name='country' placeholder='Country' value={country} onChange={(e) => setCountry(e.target.value)} required={true}></input>
@@ -88,7 +90,7 @@ const EditSpotForm = () => {
                     <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
                     <span>$ </span> <input type='number' placeholder='Price per night (USD)' value={price} onChange={(e) => setPrice(e.target.value)} required={true}></input>
                 </div>            
-                <button type='submit'>Update Spot</button>
+                <button type='submit'>Update Your Spot</button>
             </form>
         </div>
     )

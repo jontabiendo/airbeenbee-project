@@ -18,12 +18,17 @@ const SpotReviews = ({ spotId }) => {
 
     reviews = Object.values(reviews).sort((a, b) => b.id - a.id)
 
+    let alreadyReviewed;
+    if (sessionUser) {
+        alreadyReviewed = reviews.find(element => sessionUser.id === element.userId)
+    }
+
     return (
         <div className="spot-reviews-div">
             <div className='spot-reviews-header'>
                 <h3><i className="fa-solid fa-star"></i> {spotData.numReviews > 0 && <p>{Math.round(spotData.avgStarRating * 100) / 100} · {spotData.numReviews} review{reviewPlural}</p>}
                 {spotData.numReviews === 0 && <p> New</p>}</h3>
-                {sessionUser && sessionUser.id !== spotData.ownerId && <div> <OpenModalButton buttonText="Post Your Review" onButtonClick={closeMenu}  modalComponent={<ReviewFormModal id={spotId} />} />
+                {sessionUser && sessionUser.id !== spotData.ownerId && !alreadyReviewed && <div> <OpenModalButton buttonText="Post Your Review" onButtonClick={closeMenu}  modalComponent={<ReviewFormModal id={spotId} />} />
                 </div>}
             </div>
             <ul>

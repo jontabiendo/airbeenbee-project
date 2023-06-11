@@ -28,6 +28,9 @@ const SpotForm = () => {
 
         setErrors({});
 
+        const images = [img1, img2, img3, img4];
+        const submittedImgArr = images.filter(item => item.url.length > 0)
+        
         dispatch(createSpotThunk({
             country,
             address,
@@ -36,19 +39,19 @@ const SpotForm = () => {
             description,
             title,
             price,
-            images: [
-                previewImg,
-                img1,
-                img2,
-                img3,
-                img4
-            ]
+            images: [previewImg, ...submittedImgArr]
         }))
-            .then( async res => {
-                if (!res.errors) history.push(`/spots/${res.id}`)
-                if (res && res.errrors) setErrors(res.errors)
+            .then(async res => {
+                const data = await res
+                if (!data.errors) history.push(`/spots/${data.id}`)
             })
-    };
+            .catch( async res => {
+                const data = await res.json()
+                if (data && data.errors) setErrors(data.errors)
+            })
+        
+        };
+
     return (
         <div className="create-spot-component">
              <h2>Create a new Spot</h2>
@@ -69,6 +72,7 @@ const SpotForm = () => {
                     <h3>Describe your place to guests</h3>
                     <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
                     <textarea placeholder="Please write at least 30 characters" value={description} onChange={(e) => setDescription(e.target.value)} required={true}></textarea>
+                    {errors.description && <p className='errors'>{errors.description}</p>}
                 </div>
                 <div className='create-spot-title'>
                     <h3>Create a title for your spot</h3>

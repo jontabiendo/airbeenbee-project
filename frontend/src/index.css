@@ -27,3 +27,14 @@ img {
     margin-left: 50%;
     transform: translateX(-50%);
 }
+
+.home-spot-list {
+    width: 90%;
+}
+
+#spot-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+}
