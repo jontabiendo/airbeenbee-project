@@ -38,7 +38,7 @@ const ReviewFormModal = ({ id }) => {
         else return "empty"
     }
 
-    let disableButtonClass =  'review-submit-button' + (review.length < 10 ? " disabled" : " enabled")
+    let disableButtonClass =  'review-submit-button' + (review.length < 10 ? "-disabled" : "-enabled")
 
     console.log(errors)
 

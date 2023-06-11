@@ -2,8 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { thunkSetUser } from '../../store/session';
 import { useModal } from '../../context/Modal';
-import './LoginForm.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom'
+
+import './LoginForm.css';
 
 const LoginFormModal = () => {
     const dispatch = useDispatch();
@@ -49,19 +51,24 @@ const LoginFormModal = () => {
             })
     }
 
+    let disabled = true;
+    if (credential.length && password.length) disabled = false
+
+    let signinButtonClass = "login-button" + (disabled ? "-disabled" : "")
+
     return (
-        <div className="login-form">
-            <h1>Log In</h1>
+        <div className="login-form-div">
+            <h2>Log In</h2>
             <form onSubmit={onSubmit}>
                 <label htmlFor="credential">Username or Email:
+                </label>
                     <input type="text" name="credential" value={credential} onChange={(e) => setCredential(e.target.value)}></input>
-                </label>
                 <label htmlFor="password">Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 </label>
+                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 {errors.credential && <p className="errors">{errors.credential}</p>}
-                <button id="login-button" type='submit' onClick={(e) => onSubmit(e)}>Login</button>
-                <button id='demo-login' type='submit' onClick={(e) => onSubmitDemo(e)}>Log in as Demo User</button>
+                <button disabled={disabled} className={signinButtonClass} type='submit' onClick={(e) => onSubmit(e)}>Login</button>
+                <Link id='demo-login' type='submit' onClick={(e) => onSubmitDemo(e)}>Demo User</Link>
             </form>
         </div>
     )

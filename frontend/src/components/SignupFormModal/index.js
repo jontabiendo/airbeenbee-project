@@ -51,7 +51,7 @@ const SignupFormModal = () => {
     if (firstName.length && lastName.length && email.length && username.length >= 4 && password.length >= 4) disabled = false
     else disabled = true
     
-    const signupButtonClassName = 'signup-button' + (disabled ? " disabled" : "")
+    const signupButtonClassName = 'signup-button' + (disabled ? "-disabled" : "")
 
     return (
         <div className='signup-form'>
@@ -62,7 +62,7 @@ const SignupFormModal = () => {
                 {errors.email && <p className='errors'>{errors.email}</p>}
                 {errors.username && <p className='errors'>{errors.username}</p>}
                 {errors.password && <p className='errors'>{errors.password}</p>}
-                {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+                {errors.confirmPassword && <p className='errors'>{errors.confirmPassword}</p>}
                 <div className='signup-section'>
                     <label htmlFor='firstName'>First Name:</label>
                     <input type='text' name='firstName' value={firstName} onChange={(e) => setFirstName(e.target.value)} /> 

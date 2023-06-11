@@ -1,4 +1,4 @@
-.enabled {
+.review-submit-button-enabled {
     color: white;
     background-color: #FF5A5F;
     padding-top: 0.5rem;
@@ -9,7 +9,7 @@
     margin: 0;
 }
 
-.disabled {
+.review-submit-button-disabled {
     color: gray;
     background-color: white;
     padding-top: 0.5rem;
