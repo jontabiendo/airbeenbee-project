@@ -54,4 +54,6 @@
     justify-content: center;
     margin: 0.5rem;
     text-decoration: underline;
+    background-color: white;
+    border: none;
 }

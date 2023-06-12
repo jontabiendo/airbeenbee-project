@@ -68,7 +68,7 @@ const LoginFormModal = () => {
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
                 {errors.credential && <p className="errors">{errors.credential}</p>}
                 <button disabled={disabled} className={signinButtonClass} type='submit' onClick={(e) => onSubmit(e)}>Login</button>
-                <Link id='demo-login' type='submit' onClick={(e) => onSubmitDemo(e)}>Demo User</Link>
+                <button id='demo-login' type='submit' onClick={(e) => onSubmitDemo(e)}>Demo User</button>
             </form>
         </div>
     )

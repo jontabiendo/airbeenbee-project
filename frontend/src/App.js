@@ -8,6 +8,7 @@ import SingleSpot from './components/Spots/SingleSpot';
 import SpotForm from './components/Spots/SpotForm';
 import ManageSpots from './components/Spots/ManageSpots';
 import EditSpotForm from './components/Spots/EditSpotForm';
+import About from './components/About/Index.js';
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
             </Route>
         </Switch>
       )}
+      <About />
       </>
     )
   );
