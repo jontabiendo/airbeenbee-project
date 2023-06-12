@@ -53,8 +53,6 @@ const SignupFormModal = () => {
     
     const signupButtonClassName = 'signup-button' + (disabled ? "-disabled" : "")
 
-    console.log(errors)
-
     return (
         <div className='signup-form'>
             <h1>Sign Up</h1>
