@@ -74,6 +74,10 @@ form > div {
     height: 7rem;
 }
 
+.create-spot-price > input {
+    width: 95.9%;
+}
+
 .create-spot-price > h3 {
     margin-top: 0.5rem;
     margin-bottom: 0.1225rem;
@@ -104,6 +108,7 @@ form > div {
 
 .create-spot-photos > input {
     width: 99%;
+    margin-bottom: 1rem;
 }
 
 #spot-form > button {
