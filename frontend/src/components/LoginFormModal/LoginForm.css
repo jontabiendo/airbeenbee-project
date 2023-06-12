@@ -57,3 +57,7 @@
     background-color: white;
     border: none;
 }
+
+#demo-login:hover {
+    cursor: pointer;
+}
