@@ -22,7 +22,7 @@ const SpotTile = ({ spotData, manage }) => {
                 <div id='tile-text'>
                     <div className='tile-upper'>
                         <h4>{city}, {state}</h4>
-                        <p><i className="fa-solid fa-star"></i> {(Math.round(avgRating * 100) / 100) || 'New'}</p>
+                        <p><i className="fa-solid fa-stars"></i> {(Math.round(avgRating * 100) / 100) || 'New'}</p>
                         </div>
                     <p>${price} night</p>
                     </div>

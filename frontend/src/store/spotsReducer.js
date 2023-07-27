@@ -53,6 +53,16 @@ export const getSingleSpotThunk = (spotId) => async dispatch => {
 
 export const createSpotThunk = (spot) => async dispatch => {
     const { country, address, city, state, description, title, price, images } = spot;
+    const formData = new FormData();
+    // formData.append("country", country);
+    // formData.append("address", address);
+    // formData.append("city", city);
+    // formData.append("state", state);
+    // formData.append("description", description);
+    // formData.append("title", title);
+    // formData.append("price", price);
+
+    Array.from(images).forEach(image => formData.append("images", image));
     
     const res = await csrfFetch('/api/spots', {
         method: 'POST',
@@ -74,19 +84,26 @@ export const createSpotThunk = (spot) => async dispatch => {
 
     const data = await res.json();
 
-    for await (const img of images) {
-        const { preview, url } = img;
-        const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                preview,
-                url
-            })
-        })
-    }
+    const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+        method: 'POST',
+        body: formData
+    })
+
+    const imgData = await imgRes.json();
+
+    // for await (const img of images) {
+    //     const { preview, url } = img;
+    //     const imgRes = await csrfFetch(`/api/spots/${data.id}/images`, {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             preview,
+    //             url
+    //         })
+    //     })
+    // }
     return data;
 };
 

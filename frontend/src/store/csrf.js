@@ -4,9 +4,11 @@ export async function csrfFetch(url, options = {}) {
     options.method = options.method || 'GET';
     options.headers = options.headers || {};
 
-    if (options.method.toUpperCase() !== 'GET') {
-        options.headers['Content-Type'] = options.headers['Content-Type'] || 'application/json';
-        options.headers['XSRF-Token'] = Cookies.get("XSRF-TOKEN");
+    if (options.method.toUpperCase() !== "GET") {
+      if (!options.headers["Content-Type"] && !(options.body instanceof FormData)) {
+        options.headers["Content-Type"] = "application/json";
+      }
+        options.headers["XSRF-Token"] = Cookies.get("XSRF-TOKEN");
     }
 
     // console.log(options)

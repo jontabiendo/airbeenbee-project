@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { Op } = require('sequelize');
+const { multiplePublicFileUpload, multipleMulterUpload, retrievePrivateFile } = require('../../awsS3')
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
@@ -29,11 +30,11 @@ const validateSpot = [
     check('lat')
         .exists({ checkFalsy: true })
         .isDecimal()
-        .withMessage('Latitude is not valid'),
+        .withMessage('lat is not valid'),
     check('lng')
         .exists({ checkFalsy: true })
         .isDecimal()
-        .withMessage('Longitude is not valid'),
+        .withMessage('lng is not valid'),
     check('name')
         .exists({ checkFalsy: true })
         .isLength({ max: 50 })
@@ -72,11 +73,11 @@ const validateSpotEdits = [
     check('lat')
         .exists({ checkFalsy: true })
         .isDecimal()
-        .withMessage('Latitude is not valid'),
+        .withMessage('lat is not valid'),
     check('lng')
         .exists({ checkFalsy: true })
         .isDecimal()
-        .withMessage('Longitude is not valid'),
+        .withMessage('lng is not valid'),
     check('name')
         .exists({ checkFalsy: true })
         .isLength({ max: 50 })
@@ -479,34 +480,42 @@ router.post('/:spotId/reviews', [requireAuth, validateReview], async (req, res, 
     res.json(newReview);
 })
 
-router.post('/:spotId/images', [requireAuth, validateImg], async (req, res, next) => {
-    const { url, preview } = req.body;
+router.post('/:spotId/images', [requireAuth, multipleMulterUpload("images")], async (req, res, next) => {
+    // const { url, preview } = req.body;
 
     const spotId = req.params.spotId
 
-    const spot = await Spot.findByPk(spotId);
-    if(!spot) {
-        res.statusCode = 404;
-        return res.json({
-        message: "Spot couldn't be found"
-        })
-    }
-    if(spot.ownerId !== req.user.id) {
-        res.statusCode = 401
-        return res.json({
-            message: "You do not have authorization to make changes to this spot"
-        })
-    }
+    const keys = await multiplePublicFileUpload({files: req.files});
+    const images = await Promise.all(
+        keys.map(key => SpotImage.create({ url: key, spotId}))
+    )
 
-    const createdImage = await SpotImage.create({
-        spotId,
-        url,
-        preview
-    });
+    const imageUrls = images.map(image => retrievePrivateFile(image.key))
+    return res.json(imageUrls);
 
-    const resImage = await SpotImage.findByPk(createdImage.id)
+    // const spot = await Spot.findByPk(spotId);
+    // if(!spot) {
+    //     res.statusCode = 404;
+    //     return res.json({
+    //     message: "Spot couldn't be found"
+    //     })
+    // }
+    // if(spot.ownerId !== req.user.id) {
+    //     res.statusCode = 401
+    //     return res.json({
+    //         message: "You do not have authorization to make changes to this spot"
+    //     })
+    // }
 
-    res.json(resImage)
+    // const createdImage = await SpotImage.create({
+    //     spotId,
+    //     url,
+    //     preview
+    // });
+
+    // const resImage = await SpotImage.findByPk(createdImage.id)
+
+    // res.json(resImage)
 });
 
 
@@ -598,11 +607,11 @@ router.get('/', async (req, res, next) => {
     };
 
     if(minLat && Number.isNaN(minLat2)) {
-        errors.minLat = "Minimum longitude is invalid"
+        errors.minLat = "Minimum lng is invalid"
     };
 
     if(maxLat && Number.isNaN(maxLat2)) {
-        errors.maxLat = "Maximum longitude is invalid"
+        errors.maxLat = "Maximum lng is invalid"
     };
 
     if(minLng || maxLng) {
@@ -625,11 +634,11 @@ router.get('/', async (req, res, next) => {
     };
 
     if(minLng && Number.isNaN(minLng2)) {
-        errors.minLng = "Minimum longitude is invalid"
+        errors.minLng = "Minimum lng is invalid"
     };
 
     if(maxLng && Number.isNaN(maxLng2)) {
-        errors.maxLng = "Maximum longitude is invalid"
+        errors.maxLng = "Maximum lng is invalid"
     };
 
     if(minPrice || maxPrice) {

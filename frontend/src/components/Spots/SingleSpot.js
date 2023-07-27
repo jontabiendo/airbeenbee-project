@@ -62,7 +62,7 @@ const SingleSpot = () => {
                     <div id="action-info">
                         <p>${spotData.price} night</p>
                         <div id='review-reserve'>
-                            <p><i className="fa-solid fa-star"></i> </p>
+                            <p><i className="fa-solid fa-stars"></i> </p>
                             {spotData.numReviews > 0 && <p>{Math.round(spotData.avgStarRating * 100) / 100} · {spotData.numReviews} reviews</p>}
                             {spotData.numReviews === 0 && <p> New</p>}
                         </div>

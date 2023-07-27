@@ -47,19 +47,19 @@ const ReviewFormModal = ({ id }) => {
             <textarea value={review} onChange={(e) => setReview(e.target.value)} placeholder='Leave your review here...' />
             <div className="rating-input">
         <div className={starFill(1)} onMouseEnter={!disabled ? (e) =>  setCurrentStars(1) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(1)}>
-        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-stars"></i>
         </div>
         <div className={starFill(2)} onMouseEnter={!disabled ? (e) => setCurrentStars(2) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(2)} >
-        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-stars"></i>
         </div>
         <div className={starFill(3)} onMouseEnter={!disabled ? (e) => setCurrentStars(3) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(3)} >
-        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-stars"></i>
         </div>
         <div className={starFill(4)} onMouseEnter={!disabled ? (e) => setCurrentStars(4) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(4)} >
-        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-stars"></i>
         </div>
         <div className={starFill(5)} onMouseEnter={!disabled ? (e) => setCurrentStars(5) : null} onMouseLeave={() => setCurrentStars(currentStars)} onClick={() => onChange(5)} >
-        <i className="fa-solid fa-star"></i>
+        <i className="fa-solid fa-stars"></i>
         <span>Stars</span>
         </div>
       </div>
