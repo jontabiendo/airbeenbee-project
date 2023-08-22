@@ -33,7 +33,7 @@ Introduction :
      
 -------------------------------------------------------------------------------------------------------------------
 
-Technologies used :
+Technologies used
 
 This project uses the following technologies to achieve the following functionalities in the following:
   
