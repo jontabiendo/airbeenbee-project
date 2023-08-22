@@ -3,7 +3,7 @@ https://appacademy-projects.onrender.com
 
 * airbee'n'bee is a clone website of AirBnb with basic functionality of creating spots and leaving reviews
 
-## Introduction :
+## Introduction
 
 In this project I cloned basic layout and functionality of Airbnb.com's website. Its current functionality includes the following two features
       * Creating, Reading, Updating and Deleting a single spot from the database along with its associated data
