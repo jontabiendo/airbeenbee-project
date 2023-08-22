@@ -66,7 +66,8 @@ Running the backend server:
 * cd into the /backend folder
 * Run "npm start" to boot the backend server
 
-* From the root directory in another terminal
+Running the frontend server:
+* From the root directory in a different terminal
 * cd into the /frontend folder
 * Run "npm start" to boot the frontend server and launch the website
     
